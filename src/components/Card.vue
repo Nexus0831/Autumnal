@@ -1,6 +1,6 @@
 <template>
 <!--  <div class="card" @click="clickAction">-->
-  <div class="card">
+  <div class="card" @click="clickAction">
     <div class="card-title">
       {{ title }}
     </div>
@@ -60,9 +60,9 @@ export default class Card extends Vue {
 
   @Prop() private keyNumber!: string;
 
-  // clickAction() {
-  //   this.$router.push({ path: `/detail/${this.keyNumber}` });
-  // }
+  clickAction() {
+    this.$router.push({ path: `/count/${this.keyNumber}` });
+  }
   //
   // alertOpen() {
   //   this.$store.commit('SET_ALERT_ID', this.keyNumber);
