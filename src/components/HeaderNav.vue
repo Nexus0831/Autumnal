@@ -82,7 +82,7 @@ export default class HeaderNav extends Vue {}
     .title
       font-size 24px
       font-weight 500
-      color white
+      color #e91e63
       text-decoration none
       line-height 1.6
       letter-spacing 0.0075em

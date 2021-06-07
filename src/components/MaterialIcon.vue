@@ -31,7 +31,7 @@ export default class MaterialIcon extends Vue {
 
   @Prop() private hoverColor!: string;
 
-  @Prop() private backgroundColor!: string;
+  private backgroundColor = 'transparent';
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   hoverIn() {
