@@ -1,12 +1,12 @@
 <template>
   <div id="count">
-<!--    test{{ this.$route.params.id }}-->
+<!--    test{{ this.$route.params.key }}-->
     <div class="counter-area card-texture">
       <div class="counter-container">
-        <template v-for="counter in counters">
+        <template v-for="counter in group.counters">
           <Counter
-            :key="counter.id"
-            :key-number="counter.id"
+            :key="counter.key"
+            :key-number="counter.key"
             :name="counter.name"
             :background-color="counter.color"
             :count="counter.count"
@@ -31,43 +31,57 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import CreateCounterButton from '@/components/CreateCounterButton.vue';
 import Counter from '@/components/Counter.vue';
+import { mapState } from 'vuex';
 
 @Component({
-  components: { Counter, CreateCounterButton },
+  components: {
+    Counter,
+    CreateCounterButton,
+  },
+  computed: {
+    ...mapState([
+      'group',
+    ]),
+  },
 })
 export default class CountView extends Vue {
   private counters = [
     {
-      id: 1,
+      key: 1,
       name: 'アイテム1',
       color: '#2196f3',
       count: 5,
     },
     {
-      id: 2,
+      key: 2,
       name: 'アイテム2',
       color: '#ffeb3b',
       count: 12,
     },
     {
-      id: 3,
+      key: 3,
       name: 'アイテム3',
       color: '#4caf50',
       count: 999,
     },
     {
-      id: 4,
+      key: 4,
       name: 'アイテム4',
       color: '#9c27b0',
       count: 89,
     },
     {
-      id: 5,
+      key: 5,
       name: 'アイテム5',
       color: '#e91e63',
       count: 0,
     },
   ]
+
+  mounted() {
+    // groupを読み込み
+    this.$store.dispatch('groupRead', this.$route.params.key).then();
+  }
 }
 </script>
 

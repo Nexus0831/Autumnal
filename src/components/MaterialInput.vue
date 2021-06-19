@@ -1,5 +1,5 @@
 <!--<template>-->
-<!--  <div id="material-field">-->
+<!--  <div key="material-field">-->
 <!--    <label-->
 <!--      :for="idName"-->
 <!--      class="material-input-label"-->
@@ -9,7 +9,7 @@
 <!--    </label>-->
 <!--    <div class="material-field-input" :class="{focus: isFocus}">-->
 <!--      <input-->
-<!--        :id="idName"-->
+<!--        :key="idName"-->
 <!--        class="material-input"-->
 <!--        type="text"-->
 <!--        autocomplete="off"-->

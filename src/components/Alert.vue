@@ -1,5 +1,5 @@
 <!--<template>-->
-<!--  <div id="alert" @click.self.stop="closeAlert">-->
+<!--  <div key="alert" @click.self.stop="closeAlert">-->
 <!--    <div class="surface">-->
 <!--      <div class="alert-title">{{ title }} is Delete?</div>-->
 <!--      <div class="alert-body">-->

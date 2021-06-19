@@ -5,9 +5,9 @@
     <div id="cards">
       <template v-for="item in groups">
         <Card
-          :id="item.id"
-          :key="item.id"
-          :keyNumber="item.id"
+          :id="item.key"
+          :key="item.key"
+          :keyNumber="item.key"
           :title="item.groupName"
           :body="item.detail"
         />

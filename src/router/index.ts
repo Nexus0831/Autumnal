@@ -12,7 +12,7 @@ const routes: Array<RouteConfig> = [
     component: Home,
   },
   {
-    path: '/count/:id',
+    path: '/count/:key',
     name: 'Count',
     component: Count,
   },

@@ -1,5 +1,5 @@
 <!--<template>-->
-<!--  <div id="dialog-form" @click.self="$emit('dialog-close')">-->
+<!--  <div key="dialog-form" @click.self="$emit('dialog-close')">-->
 <!--    <div class="surface">-->
 <!--      <div class="dialog-form-title">{{ formTitle }}</div>-->
 <!--      <div class="dialog-form-title error" v-if="!validate">-->
