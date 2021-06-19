@@ -1,7 +1,6 @@
 <template>
   <div id="home">
-<!--    <CreateButton @click-action="sampleAction"/>-->
-    <CreateButton/>
+    <CreateButton @click-action="dialogOpen"/>
     <div id="cards">
       <template v-for="item in groups">
         <Card
@@ -20,17 +19,17 @@
 <!--        </transition>-->
       </template>
     </div>
-<!--    <transition name="fade">-->
-<!--      <DialogForm-->
-<!--        v-if="isDialogOpen"-->
-<!--        formTitle="Create MindMap"-->
-<!--        validMessage="Heyブラザー！TitleとBodyが空だぜ！"-->
-<!--        :validate="mapCreateFields.validate"-->
-<!--        :fields="fields"-->
-<!--        @submit-action="mindMapSubmit"-->
-<!--        @dialog-close="dialogClose"-->
-<!--      />-->
-<!--    </transition>-->
+    <transition name="fade">
+      <DialogForm
+        v-if="isDialogOpen"
+        formTitle="Create Group"
+        validMessage="Heyブラザー！TitleとBodyが空だぜ！"
+        :validate="groupCreateFields.validate"
+        :fields="fields"
+        @submit-action="console.log('submit')"
+        @dialog-close="dialogClose"
+      />
+    </transition>
   </div>
 </template>
 
@@ -39,17 +38,20 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapActions, mapState } from 'vuex';
 import Card from './Card.vue';
 import CreateButton from './CreateButton.vue';
-import DialogForm from './DialogForm.vue';
 import Alert from './Alert.vue';
+import DialogForm from './DialogForm.vue';
 
   @Component({
     components: {
+      DialogForm,
       Card,
       CreateButton,
     },
     computed: {
       ...mapState([
         'groups',
+        'groupCreateFields',
+        'isDialogOpen',
       ]),
     },
     // methods: {
@@ -60,48 +62,50 @@ import Alert from './Alert.vue';
     // }
   })
 export default class HomeView extends Vue {
-  //   fields = [
-  //     {
-  //       label: 'Title',
-  //       value: '',
-  //       changeAction: (title: string) => {
-  //         this.$store.commit('SET_MAP_CREATE_FIELDS_TITLE', title);
-  //       },
-  //     },
-  //     {
-  //       label: 'Body',
-  //       value: '',
-  //       changeAction: (body: string) => {
-  //         this.$store.commit('SET_MAP_CREATE_FIELDS_BODY', body);
-  //       },
-  //     },
-  //   ];
-  //   mounted() {
-  //     this.$store.dispatch('mindMapRead').then();
-  //     this.$store.watch(
-  //       state => state.user.uid,
-  //       () => {
-  //         this.$store.dispatch('mindMapRead').then();
-  //       },
-  //     );
-  //   }
-  //   dialogOpen() {
-  // this.fields.forEach((e) => {
-  //   e.value = '';
-  // });
-  // this.$store.commit('SET_IS_DIALOG_OPEN', true);
-  // }
-  //   dialogEditOpen(key: string) {
-  //     const mindMap = this.$store.getters.getMindMap(key);
-  //     this.fields[0].value = mindMap.title;
-  //     this.fields[1].value = mindMap.body;
-  //     this.$store.commit('SET_MAP_CREATE_FIELDS_KEY', key);
-  //     this.$store.commit('SET_IS_DIALOG_OPEN', true);
-  //   }
-  //   dialogClose() {
-  //     this.$store.commit('SET_IS_DIALOG_OPEN', false);
-  //     this.$store.dispatch('mindMapFieldsClear');
-  //   }
+    fields = [
+      {
+        label: 'groupName',
+        value: '',
+        changeAction: (groupName: string) => {
+          this.$store.commit('SET_GROUP_CREATE_FIELDS_GROUP_NAME', groupName);
+        },
+      },
+      {
+        label: 'detail',
+        value: '',
+        changeAction: (detail: string) => {
+          this.$store.commit('SET_GROUP_CREATE_FIELDS_DETAIL', detail);
+        },
+      },
+    ];
+    //   mounted() {
+    //     this.$store.dispatch('mindMapRead').then();
+    //     this.$store.watch(
+    //       state => state.user.uid,
+    //       () => {
+    //         this.$store.dispatch('mindMapRead').then();
+    //       },
+    //     );
+    //   }
+
+    dialogOpen() {
+      this.fields.forEach((e) => {
+        e.value = '';
+      });
+      this.$store.commit('SET_IS_DIALOG_OPEN', true);
+    }
+
+    //   dialogEditOpen(key: string) {
+    //     const mindMap = this.$store.getters.getMindMap(key);
+    //     this.fields[0].value = mindMap.title;
+    //     this.fields[1].value = mindMap.body;
+    //     this.$store.commit('SET_MAP_CREATE_FIELDS_KEY', key);
+    //     this.$store.commit('SET_IS_DIALOG_OPEN', true);
+    //   }
+    dialogClose() {
+      this.$store.commit('SET_IS_DIALOG_OPEN', false);
+      this.$store.dispatch('groupFieldsClear');
+    }
 }
 </script>
 

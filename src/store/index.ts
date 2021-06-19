@@ -92,6 +92,14 @@ export default new Vuex.Store({
       },
     ],
     group: {},
+    isDialogOpen: false,
+    groupCreateFields: {
+      key: '',
+      groupName: '',
+      lastUpdate: '',
+      detail: '',
+      validate: true,
+    },
   },
   getters: {
     getGroup: (state) => (key: string) => {
@@ -104,20 +112,42 @@ export default new Vuex.Store({
     SET_GROUP: (state, group) => {
       state.group = group;
     },
+    SET_IS_DIALOG_OPEN: (state, isOpen) => {
+      state.isDialogOpen = isOpen;
+    },
+    // *-- group作成用fieldのset --*
+    SET_GROUP_CREATE_FIELDS_KEY: (state, key) => {
+      state.groupCreateFields.key = key;
+    },
+    SET_GROUP_CREATE_FIELDS_GROUP_NAME: (state, groupName) => {
+      state.groupCreateFields.groupName = groupName;
+    },
+    SET_GROUP_CREATE_FIELDS_LAST_UPDATE: (state, lastUpdate) => {
+      state.groupCreateFields.lastUpdate = lastUpdate;
+    },
+    SET_GROUP_CREATE_FIELDS_DETAIL: (state, detail) => {
+      state.groupCreateFields.detail = detail;
+    },
+    SET_GROUP_CREATE_FIELDS_VALIDATE: (state, validate) => {
+      state.groupCreateFields.validate = validate;
+    },
+    // *-- end --*
   },
   actions: {
     // count画面にURLに直接アクセスした際にもデータを表示できるようにする
     groupRead: (context, key) => {
-      // for (const item of context.state.groups) {
-      //   if (item.key === key) {
-      //     context.commit('SET_GROUP', item);
-      //   }
-      // }
       context.state.groups.forEach((item) => {
         if (item.key === key) {
           context.commit('SET_GROUP', item);
         }
       });
+    },
+    groupFieldsClear: (context) => {
+      context.commit('SET_GROUP_CREATE_FIELDS_KEY', '');
+      context.commit('SET_GROUP_CREATE_FIELDS_GROUP_NAME', '');
+      context.commit('SET_GROUP_CREATE_FIELDS_DETAIL', '');
+      context.commit('SET_GROUP_CREATE_FIELDS_LAST_UPDATE', '');
+      context.commit('SET_GROUP_CREATE_FIELDS_VALIDATE', true);
     },
   },
   modules: {
