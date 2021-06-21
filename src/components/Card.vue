@@ -32,6 +32,7 @@
         style="color: #B00020"
         rippleColor="rgba(176, 0, 32, 0.5)"
         hoverColor="rgba(176, 0, 32, 0.2)"
+        @click-action="alertOpen"
       />
       <MaterialIcon
         icon="edit"
@@ -72,11 +73,9 @@ export default class Card extends Vue {
     this.$router.push({ path: `/count/${this.keyNumber}` });
   }
 
-  //
-  // alertOpen() {
-  //   this.$store.commit('SET_ALERT_ID', this.keyNumber);
-  // }
-  //
+  alertOpen() {
+    this.$store.commit('SET_ALERT_ID', this.keyNumber);
+  }
 
   editAction() {
     this.$emit('update-action', this.keyNumber);

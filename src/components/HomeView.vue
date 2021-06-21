@@ -12,20 +12,20 @@
           :date="item.lastUpdate"
           @update-action="dialogEditOpen"
         />
-<!--        <transition name="alert" :key="item.key">-->
-<!--          <Alert-->
-<!--            :title="item.title"-->
-<!--            v-if="alertId === item.key"-->
-<!--            @alert-action="mindMapDelete(item.key)"-->
-<!--          />-->
-<!--        </transition>-->
+        <transition name="alert" :key="item.key">
+          <Alert
+            :title="item.groupName"
+            v-if="alertId === item.key"
+            @alert-action="groupDelete(item.key)"
+          />
+        </transition>
       </template>
     </div>
     <transition name="fade">
       <DialogForm
         v-if="isDialogOpen"
         formTitle="Create Group"
-        validMessage="Heyブラザー！TitleとBodyが空だぜ！"
+        validMessage="GroupNameは必ず入力してください"
         :validate="groupCreateFields.validate"
         :fields="fields"
         @submit-action="groupSubmit"
@@ -38,13 +38,14 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapActions, mapState } from 'vuex';
+import Alert from '@/components/Alert.vue';
 import Card from './Card.vue';
 import CreateButton from './CreateButton.vue';
-import Alert from './Alert.vue';
 import DialogForm from './DialogForm.vue';
 
   @Component({
     components: {
+      Alert,
       DialogForm,
       Card,
       CreateButton,
@@ -54,25 +55,27 @@ import DialogForm from './DialogForm.vue';
         'groups',
         'groupCreateFields',
         'isDialogOpen',
+        'alertId',
       ]),
     },
     methods: {
       ...mapActions([
         'groupSubmit',
+        'groupDelete',
       ]),
     },
   })
 export default class HomeView extends Vue {
     fields = [
       {
-        label: 'groupName',
+        label: 'GroupName',
         value: '',
         changeAction: (groupName: string) => {
           this.$store.commit('SET_GROUP_CREATE_FIELDS_GROUP_NAME', groupName);
         },
       },
       {
-        label: 'detail',
+        label: 'Detail',
         value: '',
         changeAction: (detail: string) => {
           this.$store.commit('SET_GROUP_CREATE_FIELDS_DETAIL', detail);

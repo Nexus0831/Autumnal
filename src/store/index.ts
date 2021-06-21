@@ -100,6 +100,7 @@ export default new Vuex.Store({
       detail: '',
       validate: true,
     },
+    alertId: '',
   },
   getters: {
     getGroup: (state) => (key: string) => {
@@ -117,6 +118,9 @@ export default new Vuex.Store({
     },
     SET_IS_DIALOG_OPEN: (state, isOpen) => {
       state.isDialogOpen = isOpen;
+    },
+    SET_ALERT_ID: (state, key) => {
+      state.alertId = key;
     },
     // *-- group作成用fieldのset --*
     SET_GROUP_CREATE_FIELDS_KEY: (state, key) => {
@@ -170,15 +174,19 @@ export default new Vuex.Store({
         context.dispatch('groupFieldsClear').then();
         // context.dispatch('mindMapRead').then();
       } else {
-        context.commit('SET_MAP_CREATE_FIELDS_VALIDATE', false);
+        context.commit('SET_GROUP_CREATE_FIELDS_VALIDATE', false);
       }
     },
-    // prototype
+    // @Prototype
     groupUpdate: (context, key) => {
       console.log(key);
       console.log(context.state.groupCreateFields);
       context.commit('SET_IS_DIALOG_OPEN', false);
       context.dispatch('groupFieldsClear').then();
+    },
+    // @Prototype
+    groupDelete: (context, key) => {
+      console.log(`Delete: ${key}`);
     },
     groupSubmit: (context) => {
       // const key: string = context.state.groupCreateFields.key;
