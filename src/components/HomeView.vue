@@ -9,6 +9,7 @@
           :keyNumber="item.key"
           :title="item.groupName"
           :body="item.detail"
+          :date="item.lastUpdate"
         />
 <!--        <transition name="alert" :key="item.key">-->
 <!--          <Alert-->
@@ -26,7 +27,7 @@
         validMessage="Heyブラザー！TitleとBodyが空だぜ！"
         :validate="groupCreateFields.validate"
         :fields="fields"
-        @submit-action="console.log('submit')"
+        @submit-action="groupSubmit"
         @dialog-close="dialogClose"
       />
     </transition>
@@ -54,12 +55,11 @@ import DialogForm from './DialogForm.vue';
         'isDialogOpen',
       ]),
     },
-    // methods: {
-    //   ...mapActions([
-    //     'mindMapSubmit',
-    //     'mindMapDelete',
-    //   ]),
-    // }
+    methods: {
+      ...mapActions([
+        'groupSubmit',
+      ]),
+    },
   })
 export default class HomeView extends Vue {
     fields = [

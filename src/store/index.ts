@@ -9,8 +9,8 @@ export default new Vuex.Store({
       {
         key: '1',
         groupName: '敵A',
-        lastUpdate: '2021/5/10',
         detail: 'これは敵Aのカウントグループです',
+        lastUpdate: '2021/5/10',
         counters: [
           {
             key: 1,
@@ -47,8 +47,8 @@ export default new Vuex.Store({
       {
         key: '2',
         groupName: '敵B',
-        lastUpdate: '2021/5/12',
         detail: 'これは敵Bのカウントグループです',
+        lastUpdate: '2021/5/12',
         counters: [
           {
             key: 1,
@@ -73,8 +73,8 @@ export default new Vuex.Store({
       {
         key: '3',
         groupName: '敵C',
-        lastUpdate: '2021/5/16',
         detail: 'これは敵Cのカウントグループです',
+        lastUpdate: '2021/5/16',
         counters: [
           {
             key: 1,
@@ -112,6 +112,9 @@ export default new Vuex.Store({
     SET_GROUP: (state, group) => {
       state.group = group;
     },
+    SET_GROUPS: (state, groups) => {
+      state.groups = groups;
+    },
     SET_IS_DIALOG_OPEN: (state, isOpen) => {
       state.isDialogOpen = isOpen;
     },
@@ -141,6 +144,44 @@ export default new Vuex.Store({
           context.commit('SET_GROUP', item);
         }
       });
+    },
+    groupCreate: (context) => {
+      if (context.state.groupCreateFields.groupName !== '') {
+        // const uid: string = context.state.user.uid;
+        const nowDate = new Date();
+        // 試しのデータ 本番ではkeyとcountersがないそしてobjectをつける
+        const data = {
+          key: `${context.state.groups.length + 1}`,
+          groupName: context.state.groupCreateFields.groupName,
+          detail: context.state.groupCreateFields.detail,
+          lastUpdate: `${nowDate.getFullYear()}/${nowDate.getMonth() + 1}/${nowDate.getDate()}`,
+          counters: [],
+        };
+
+        // 更新後グループを作成
+        const newGroups = [];
+        context.state.groups.forEach((item) => {
+          newGroups.push(item);
+        });
+        newGroups.push(data);
+
+        context.commit('SET_GROUPS', newGroups);
+        context.commit('SET_IS_DIALOG_OPEN', false);
+        context.dispatch('groupFieldsClear').then();
+        // context.dispatch('mindMapRead').then();
+      } else {
+        context.commit('SET_MAP_CREATE_FIELDS_VALIDATE', false);
+      }
+    },
+    groupSubmit: (context) => {
+      // const key: string = context.state.groupCreateFields.key;
+
+      if (context.state.groupCreateFields.key === '') {
+        context.dispatch('groupCreate').then();
+      } else {
+        // console.log('update');
+        // context.dispatch('mindMapUpdate', key).then();
+      }
     },
     groupFieldsClear: (context) => {
       context.commit('SET_GROUP_CREATE_FIELDS_KEY', '');

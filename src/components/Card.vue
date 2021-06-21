@@ -4,7 +4,12 @@
     <div class="card-title">
       {{ title }}
     </div>
-    <div class="card-body">{{ body }}</div>
+    <div class="card-date">
+      Last: {{ date }}
+    </div>
+    <div class="card-body">
+      {{ body }}
+    </div>
 <!--    <div class="icon-container">-->
 <!--      <MaterialIcon-->
 <!--        icon="delete"-->
@@ -56,6 +61,8 @@ import MaterialIcon from './MaterialIcon.vue';
 export default class Card extends Vue {
   @Prop() private title!: string;
 
+  @Prop() private date!: string;
+
   @Prop() private body!: string;
 
   @Prop() private keyNumber!: string;
@@ -90,7 +97,7 @@ export default class Card extends Vue {
 
     /*--- layout ---*/
     display grid
-    grid-template-rows 16px 32px 8px 1fr 12px 32px 8px
+    grid-template-rows 16px 32px 4px 24px 4px 1fr 12px 32px 8px
     grid-template-columns 16px 1fr 16px
     /*position absolute*/
     /*--- end ---*/
@@ -121,10 +128,10 @@ export default class Card extends Vue {
     padding-top 3px
     /*--- end ---*/
 
-  .card-body
+  .card-date
     /*--- style ---*/
     font-size 16px
-    font-weight 400
+    font-weight 500
     overflow hidden
     text-overflow ellipsis
     user-select none
@@ -137,38 +144,19 @@ export default class Card extends Vue {
     grid-column 2 / 3
     /*--- end ---*/
 
-  .title-input
+  .card-body
     /*--- style ---*/
-    background-color transparent
-    color white
-    font-size 24px
-    font-weight 400
-    outline none
-    box-shadow none !important
-    border none
-    z-index 10
-    /*--- end ---*/
-
-    /*--- position ---*/
-    grid-row 2 / 3
-    grid-column 2 / 3
-    /*--- end ---*/
-
-  .body-input
-    /*--- style ---*/
-    background-color transparent
-    color white
     font-size 16px
     font-weight 400
-    outline none
-    box-shadow none !important
-    border none
-    resize none
+    overflow hidden
+    text-overflow ellipsis
+    user-select none
+    white-space nowrap
     z-index 10
     /*--- end ---*/
 
     /*--- position ---*/
-    grid-row 4 / 5
+    grid-row 6 / 7
     grid-column 2 / 3
     /*--- end ---*/
 
@@ -180,7 +168,7 @@ export default class Card extends Vue {
     /*--- end ---*/
 
     /*--- position ---*/
-    grid-row 6 / 7
+    grid-row 8 / 9
     grid-column 2 / 3
     /*--- end ---*/
 </style>
