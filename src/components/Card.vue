@@ -10,22 +10,6 @@
     <div class="card-body">
       {{ body }}
     </div>
-<!--    <div class="icon-container">-->
-<!--      <MaterialIcon-->
-<!--        icon="delete"-->
-<!--        style="color: #B00020"-->
-<!--        rippleColor="rgba(176, 0, 32, 0.5)"-->
-<!--        hoverColor="rgba(176, 0, 32, 0.2)"-->
-<!--        @click-action="alertOpen"-->
-<!--      />-->
-<!--      <MaterialIcon-->
-<!--        icon="edit"-->
-<!--        style="color: #FFF"-->
-<!--        rippleColor="rgba(255, 255, 255, 0.5)"-->
-<!--        hoverColor="rgba(255, 255, 255, 0.2)"-->
-<!--        @click-action="editAction"-->
-<!--      />-->
-<!--    </div>-->
     <div class="icon-container">
       <MaterialIcon
         icon="delete"

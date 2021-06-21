@@ -263,6 +263,16 @@ export default new Vuex.Store({
       context.commit('SET_COUNTER_CREATE_FIELDS_ITEM_NAME', '');
       context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', true);
     },
+    /* eslint-disable no-param-reassign */
+    addOnceCount: (context, keys) => {
+      context.state.groups.filter((e) => e.key === keys.groupKey)[0]
+        .counters.filter((e) => e.key === keys.counterKey)[0].count += 1;
+    },
+    oneLessCount: (context, keys) => {
+      context.state.groups.filter((e) => e.key === keys.groupKey)[0]
+        .counters.filter((e) => e.key === keys.counterKey)[0].count -= 1;
+    },
+    /* eslint-enable no-param-reassign */
   },
   modules: {
   },
