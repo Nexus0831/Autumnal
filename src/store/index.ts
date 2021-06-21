@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import colors from '@/assets/colors';
 
 Vue.use(Vuex);
 
@@ -93,11 +94,17 @@ export default new Vuex.Store({
     ],
     group: {},
     isDialogOpen: false,
+    isCounterDialogOpen: false,
     groupCreateFields: {
       key: '',
       groupName: '',
       lastUpdate: '',
       detail: '',
+      validate: true,
+    },
+    counterCreateFields: {
+      key: '',
+      itemName: '',
       validate: true,
     },
     alertId: '',
@@ -113,11 +120,14 @@ export default new Vuex.Store({
     SET_GROUP: (state, group) => {
       state.group = group;
     },
-    SET_GROUPS: (state, groups) => {
-      state.groups = groups;
-    },
+    // SET_GROUPS: (state, groups) => {
+    //   state.groups = groups;
+    // },
     SET_IS_DIALOG_OPEN: (state, isOpen) => {
       state.isDialogOpen = isOpen;
+    },
+    SET_IS_COUNTER_DIALOG_OPEN: (state, isOpen) => {
+      state.isCounterDialogOpen = isOpen;
     },
     SET_ALERT_ID: (state, key) => {
       state.alertId = key;
@@ -139,6 +149,20 @@ export default new Vuex.Store({
       state.groupCreateFields.validate = validate;
     },
     // *-- end --*
+
+    // *-- counter作成用fieldのset --*
+    SET_COUNTER_CREATE_FIELDS_KEY: (state, key) => {
+      state.counterCreateFields.key = key;
+    },
+    SET_COUNTER_CREATE_FIELDS_ITEM_NAME: (state, itemName) => {
+      state.counterCreateFields.itemName = itemName;
+    },
+    SET_COUNTER_CREATE_FIELDS_VALIDATE: (state, validate) => {
+      state.counterCreateFields.validate = validate;
+    },
+    // *-- end --*
+
+    // groupにcounterを追加
   },
   actions: {
     // count画面にURLに直接アクセスした際にもデータを表示できるようにする
@@ -162,14 +186,8 @@ export default new Vuex.Store({
           counters: [],
         };
 
-        // 更新後グループを作成
-        const newGroups = [];
-        context.state.groups.forEach((item) => {
-          newGroups.push(item);
-        });
-        newGroups.push(data);
+        context.state.groups.push(data);
 
-        context.commit('SET_GROUPS', newGroups);
         context.commit('SET_IS_DIALOG_OPEN', false);
         context.dispatch('groupFieldsClear').then();
         // context.dispatch('mindMapRead').then();
@@ -204,6 +222,46 @@ export default new Vuex.Store({
       context.commit('SET_GROUP_CREATE_FIELDS_DETAIL', '');
       context.commit('SET_GROUP_CREATE_FIELDS_LAST_UPDATE', '');
       context.commit('SET_GROUP_CREATE_FIELDS_VALIDATE', true);
+    },
+    // @Prototype
+    counterCreate: (context, key) => {
+      if (context.state.counterCreateFields.itemName !== '') {
+        // HUEをランダムに取得
+        let colorList = colors;
+        // すでにcounterに存在するHUEを削除したカラーリストを作る。
+        context.state.groups.filter((e) => e.key === key)[0].counters.forEach((item) => {
+          colorList = colorList.filter((c) => c !== item.color);
+        });
+
+        const counter = {
+          key: context.state.groups.filter((e) => e.key === key)[0].counters.length + 1,
+          name: context.state.counterCreateFields.itemName,
+          color: colorList[(Math.floor(Math.random() * colorList.length))],
+          count: 0,
+        };
+
+        context.state.groups.filter((e) => e.key === key)[0].counters.push(counter);
+
+        context.commit('SET_IS_DIALOG_OPEN', false);
+        context.dispatch('counterFieldsClear').then();
+        // context.dispatch('mindMapRead').then();
+      } else {
+        context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', false);
+      }
+    },
+    // @Prototype
+    counterSubmit: (context, key) => {
+      if (context.state.counterCreateFields.key === '') {
+        context.dispatch('counterCreate', key).then();
+      } else {
+        // console.log('update');
+        // context.dispatch('groupUpdate', context.state.groupCreateFields.key).then();
+      }
+    },
+    counterFieldsClear: (context) => {
+      context.commit('SET_COUNTER_CREATE_FIELDS_KEY', '');
+      context.commit('SET_COUNTER_CREATE_FIELDS_ITEM_NAME', '');
+      context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', true);
     },
   },
   modules: {

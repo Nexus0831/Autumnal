@@ -18,12 +18,24 @@
           rippleColor="rgba(255, 255, 255, 0.2)"
           hoverColor="#303030"
           backgroundColor="#424242"
+          @click-action="dialogOpen"
         />
       </div>
     </div>
     <div class="graph-area card-texture">
       ここにはグラフを表示
     </div>
+    <transition name="fade">
+      <DialogForm
+        v-if="isCounterDialogOpen"
+        formTitle="Counter"
+        validMessage="ItemNameが空です"
+        :validate="counterCreateFields.validate"
+        :fields="fields"
+        @submit-action="submitAction"
+        @dialog-close="dialogClose"
+      />
+    </transition>
   </div>
 </template>
 
@@ -32,55 +44,52 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import CreateCounterButton from '@/components/CreateCounterButton.vue';
 import Counter from '@/components/Counter.vue';
 import { mapState } from 'vuex';
+import DialogForm from '@/components/DialogForm.vue';
 
 @Component({
   components: {
+    DialogForm,
     Counter,
     CreateCounterButton,
   },
   computed: {
     ...mapState([
       'group',
+      'isCounterDialogOpen',
+      'counterCreateFields',
     ]),
   },
 })
 export default class CountView extends Vue {
-  private counters = [
+  fields = [
     {
-      key: 1,
-      name: 'アイテム1',
-      color: '#2196f3',
-      count: 5,
+      label: 'ItemName',
+      value: '',
+      changeAction: (itemName: string) => {
+        this.$store.commit('SET_COUNTER_CREATE_FIELDS_ITEM_NAME', itemName);
+      },
     },
-    {
-      key: 2,
-      name: 'アイテム2',
-      color: '#ffeb3b',
-      count: 12,
-    },
-    {
-      key: 3,
-      name: 'アイテム3',
-      color: '#4caf50',
-      count: 999,
-    },
-    {
-      key: 4,
-      name: 'アイテム4',
-      color: '#9c27b0',
-      count: 89,
-    },
-    {
-      key: 5,
-      name: 'アイテム5',
-      color: '#e91e63',
-      count: 0,
-    },
-  ]
+  ];
 
   mounted() {
     // groupを読み込み
     this.$store.dispatch('groupRead', this.$route.params.key).then();
+  }
+
+  submitAction() {
+    this.$store.dispatch('counterSubmit', this.$route.params.key);
+  }
+
+  dialogOpen() {
+    this.fields.forEach((e) => {
+      e.value = '';
+    });
+    this.$store.commit('SET_IS_COUNTER_DIALOG_OPEN', true);
+  }
+
+  dialogClose() {
+    this.$store.commit('SET_IS_COUNTER_DIALOG_OPEN', false);
+    this.$store.dispatch('counterFieldsClear');
   }
 }
 </script>
