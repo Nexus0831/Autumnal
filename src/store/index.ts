@@ -173,6 +173,13 @@ export default new Vuex.Store({
         context.commit('SET_MAP_CREATE_FIELDS_VALIDATE', false);
       }
     },
+    // prototype
+    groupUpdate: (context, key) => {
+      console.log(key);
+      console.log(context.state.groupCreateFields);
+      context.commit('SET_IS_DIALOG_OPEN', false);
+      context.dispatch('groupFieldsClear').then();
+    },
     groupSubmit: (context) => {
       // const key: string = context.state.groupCreateFields.key;
 
@@ -180,7 +187,7 @@ export default new Vuex.Store({
         context.dispatch('groupCreate').then();
       } else {
         // console.log('update');
-        // context.dispatch('mindMapUpdate', key).then();
+        context.dispatch('groupUpdate', context.state.groupCreateFields.key).then();
       }
     },
     groupFieldsClear: (context) => {

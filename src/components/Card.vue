@@ -38,6 +38,7 @@
         style="color: #FFF"
         rippleColor="rgba(255, 255, 255, 0.5)"
         hoverColor="rgba(255, 255, 255, 0.2)"
+        @click-action="editAction"
       />
     </div>
   </div>
@@ -70,14 +71,16 @@ export default class Card extends Vue {
   clickAction() {
     this.$router.push({ path: `/count/${this.keyNumber}` });
   }
+
   //
   // alertOpen() {
   //   this.$store.commit('SET_ALERT_ID', this.keyNumber);
   // }
   //
-  // editAction() {
-  //   this.$emit('update-action', this.keyNumber);
-  // }
+
+  editAction() {
+    this.$emit('update-action', this.keyNumber);
+  }
 }
 </script>
 

@@ -10,6 +10,7 @@
           :title="item.groupName"
           :body="item.detail"
           :date="item.lastUpdate"
+          @update-action="dialogEditOpen"
         />
 <!--        <transition name="alert" :key="item.key">-->
 <!--          <Alert-->
@@ -95,13 +96,14 @@ export default class HomeView extends Vue {
       this.$store.commit('SET_IS_DIALOG_OPEN', true);
     }
 
-    //   dialogEditOpen(key: string) {
-    //     const mindMap = this.$store.getters.getMindMap(key);
-    //     this.fields[0].value = mindMap.title;
-    //     this.fields[1].value = mindMap.body;
-    //     this.$store.commit('SET_MAP_CREATE_FIELDS_KEY', key);
-    //     this.$store.commit('SET_IS_DIALOG_OPEN', true);
-    //   }
+    dialogEditOpen(key: string) {
+      const group = this.$store.getters.getGroup(key);
+      this.fields[0].value = group.groupName;
+      this.fields[1].value = group.detail;
+      this.$store.commit('SET_GROUP_CREATE_FIELDS_KEY', key);
+      this.$store.commit('SET_IS_DIALOG_OPEN', true);
+    }
+
     dialogClose() {
       this.$store.commit('SET_IS_DIALOG_OPEN', false);
       this.$store.dispatch('groupFieldsClear');
