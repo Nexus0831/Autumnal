@@ -10,6 +10,7 @@
             :name="counter.name"
             :background-color="counter.color"
             :count="counter.count"
+            @update-action="dialogEditOpen"
           />
         </template>
         <CreateCounterButton
@@ -45,6 +46,8 @@ import CreateCounterButton from '@/components/CreateCounterButton.vue';
 import Counter from '@/components/Counter.vue';
 import { mapState } from 'vuex';
 import DialogForm from '@/components/DialogForm.vue';
+// eslint-disable-next-line import/named
+import { counter } from '@/interface/interface';
 
 @Component({
   components: {
@@ -90,6 +93,14 @@ export default class CountView extends Vue {
   dialogClose() {
     this.$store.commit('SET_IS_COUNTER_DIALOG_OPEN', false);
     this.$store.dispatch('counterFieldsClear');
+  }
+
+  dialogEditOpen(key: string) {
+    this.fields[0].value = this.$store.state.group.counters.filter(
+      (e: counter) => e.key === key,
+    )[0].name;
+    this.$store.commit('SET_COUNTER_CREATE_FIELDS_KEY', key);
+    this.$store.commit('SET_IS_COUNTER_DIALOG_OPEN', true);
   }
 }
 </script>

@@ -173,6 +173,7 @@ export default new Vuex.Store({
         }
       });
     },
+    // TODO Prototype
     groupCreate: (context) => {
       if (context.state.groupCreateFields.groupName !== '') {
         // const uid: string = context.state.user.uid;
@@ -195,20 +196,19 @@ export default new Vuex.Store({
         context.commit('SET_GROUP_CREATE_FIELDS_VALIDATE', false);
       }
     },
-    // @Prototype
+    // TODO Prototype
     groupUpdate: (context, key) => {
       console.log(key);
       console.log(context.state.groupCreateFields);
       context.commit('SET_IS_DIALOG_OPEN', false);
       context.dispatch('groupFieldsClear').then();
     },
-    // @Prototype
+    // TODO Prototype
     groupDelete: (context, key) => {
       console.log(`Delete: ${key}`);
     },
     groupSubmit: (context) => {
       // const key: string = context.state.groupCreateFields.key;
-
       if (context.state.groupCreateFields.key === '') {
         context.dispatch('groupCreate').then();
       } else {
@@ -223,7 +223,7 @@ export default new Vuex.Store({
       context.commit('SET_GROUP_CREATE_FIELDS_LAST_UPDATE', '');
       context.commit('SET_GROUP_CREATE_FIELDS_VALIDATE', true);
     },
-    // @Prototype
+    // TODO Prototype
     counterCreate: (context, key) => {
       if (context.state.counterCreateFields.itemName !== '') {
         // HUEをランダムに取得
@@ -249,13 +249,20 @@ export default new Vuex.Store({
         context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', false);
       }
     },
-    // @Prototype
+    // TODO Prototype
+    counterUpdate: (context, key) => {
+      console.log(key);
+      console.log(context.state.counterCreateFields.itemName);
+      context.commit('SET_IS_COUNTER_DIALOG_OPEN', false);
+      context.dispatch('counterFieldsClear').then();
+    },
+    // TODO Prototype
     counterSubmit: (context, key) => {
       if (context.state.counterCreateFields.key === '') {
         context.dispatch('counterCreate', key).then();
       } else {
         // console.log('update');
-        // context.dispatch('groupUpdate', context.state.groupCreateFields.key).then();
+        context.dispatch('counterUpdate', context.state.counterCreateFields.key).then();
       }
     },
     counterFieldsClear: (context) => {
@@ -264,10 +271,12 @@ export default new Vuex.Store({
       context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', true);
     },
     /* eslint-disable no-param-reassign */
+    // TODO Prototype
     addOnceCount: (context, keys) => {
       context.state.groups.filter((e) => e.key === keys.groupKey)[0]
         .counters.filter((e) => e.key === keys.counterKey)[0].count += 1;
     },
+    // TODO Prototype
     oneLessCount: (context, keys) => {
       context.state.groups.filter((e) => e.key === keys.groupKey)[0]
         .counters.filter((e) => e.key === keys.counterKey)[0].count -= 1;

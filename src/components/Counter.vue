@@ -25,6 +25,7 @@
         style="color: #FFF"
         rippleColor="rgba(255, 255, 255, 0.5)"
         hoverColor="rgba(255, 255, 255, 0.2)"
+        @click-action="editAction"
       />
       <MaterialIcon
         class="counter-icon"
@@ -58,6 +59,10 @@ export default class counter extends Vue {
       'addOnceCount',
       { groupKey: this.$route.params.key, counterKey: this.keyNumber },
     );
+  }
+
+  editAction() {
+    this.$emit('update-action', this.keyNumber);
   }
 
   minusAction() {
