@@ -16,33 +16,45 @@ export default new Vuex.Store({
           {
             key: 1,
             name: 'アイテム1',
-            color: '#2196f3',
+            backgroundColor: '#2196f3',
+            textColor: '#ffffff',
             count: 5,
           },
           {
             key: 2,
             name: 'アイテム2',
-            color: '#ffeb3b',
+            backgroundColor: '#ffeb3b',
+            textColor: '#000000DE',
             count: 12,
           },
           {
             key: 3,
             name: 'アイテム3',
-            color: '#4caf50',
+            backgroundColor: '#4caf50',
+            textColor: '#000000DE',
             count: 999,
           },
           {
             key: 4,
             name: 'アイテム4',
-            color: '#9c27b0',
+            backgroundColor: '#9c27b0',
+            textColor: '#ffffff',
             count: 89,
           },
           {
             key: 5,
             name: 'アイテム5',
-            color: '#e91e63',
+            backgroundColor: '#e91e63',
+            textColor: '#ffffff',
             count: 0,
           },
+          {
+            key: 6,
+            name: 'アイテム名が長すぎるとどうなるのか実験するためのアイテム名',
+            backgroundColor: '#546e7a',
+            textColor: '#ffffff',
+            count: 0,
+          }
         ],
       },
       {
@@ -54,19 +66,22 @@ export default new Vuex.Store({
           {
             key: 1,
             name: 'アイテム1',
-            color: '#2196f3',
+            backgroundColor: '#2196f3',
+            textColor: '#ffffff',
             count: 5,
           },
           {
             key: 2,
             name: 'アイテム2',
-            color: '#ffeb3b',
+            backgroundColor: '#ffeb3b',
+            textColor: '#000000DE',
             count: 12,
           },
           {
             key: 3,
             name: 'アイテム3',
-            color: '#4caf50',
+            backgroundColor: '#4caf50',
+            textColor: '#000000DE',
             count: 999,
           },
         ],
@@ -80,13 +95,15 @@ export default new Vuex.Store({
           {
             key: 1,
             name: 'アイテム1',
-            color: '#2196f3',
+            backgroundColor: '#2196f3',
+            textColor: '#ffffff',
             count: 5,
           },
           {
             key: 2,
             name: 'アイテム2',
-            color: '#ffeb3b',
+            backgroundColor: '#ffeb3b',
+            textColor: '#000000DE',
             count: 12,
           },
         ],
@@ -234,13 +251,15 @@ export default new Vuex.Store({
         let colorList = colors;
         // すでにcounterに存在するHUEを削除したカラーリストを作る。
         context.state.groups.filter((e) => e.key === key)[0].counters.forEach((item) => {
-          colorList = colorList.filter((c) => c !== item.color);
+          colorList = colorList.filter((c) => c.backgroundColor !== item.backgroundColor);
         });
 
+        const color = colorList[(Math.floor(Math.random() * colorList.length))];
         const counter = {
           key: context.state.groups.filter((e) => e.key === key)[0].counters.length + 1,
           name: context.state.counterCreateFields.itemName,
-          color: colorList[(Math.floor(Math.random() * colorList.length))],
+          backgroundColor: color.backgroundColor,
+          textColor: color.textColor,
           count: 0,
         };
 

@@ -8,7 +8,8 @@
             :key="counter.key"
             :key-number="counter.key"
             :name="counter.name"
-            :background-color="counter.color"
+            :background-color="counter.backgroundColor"
+            :text-color="counter.textColor"
             :count="counter.count"
             @update-action="dialogEditOpen"
           />

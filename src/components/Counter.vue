@@ -1,7 +1,7 @@
 <template>
   <div
     class="counter"
-    v-bind:style="{ backgroundColor: backgroundColor }"
+    v-bind:style="{ backgroundColor: backgroundColor, color: textColor }"
     @click="addAction"
   >
     <div class="counter-name">
@@ -14,7 +14,7 @@
       <MaterialIcon
         class="counter-icon"
         icon="remove"
-        style="color: #FFF"
+        v-bind:style="{ color: textColor }"
         rippleColor="rgba(255, 255, 255, 0.5)"
         hoverColor="rgba(255, 255, 255, 0.2)"
         @click-action="minusAction"
@@ -22,7 +22,7 @@
       <MaterialIcon
         class="counter-icon"
         icon="edit"
-        style="color: #FFF"
+        v-bind:style="{ color: textColor }"
         rippleColor="rgba(255, 255, 255, 0.5)"
         hoverColor="rgba(255, 255, 255, 0.2)"
         @click-action="editAction"
@@ -50,6 +50,8 @@ export default class counter extends Vue {
   @Prop() private name!: string;
 
   @Prop() private backgroundColor!: string;
+
+  @Prop() private textColor!: string;
 
   @Prop() private keyNumber!: number;
 
@@ -101,16 +103,7 @@ export default class counter extends Vue {
 
   .counter-name
     /*-- style --*/
-    color #424242
     font-weight bold
-    text-shadow: 1px  1px 0.5px #ffffff,
-      -1px  1px 0.5px #ffffff,
-      1px -1px 0.5px #ffffff,
-      -1px -1px 0.5px #ffffff,
-      1px  0px 0.5px #ffffff,
-      0px  1px 0.5px #ffffff,
-      -1px  0px 0.5px #ffffff,
-      0px -1px 0.5px #ffffff
     /*-webkit-text-stroke 0.5px #FFFFFF*/
     /*-- end */
 
@@ -125,17 +118,8 @@ export default class counter extends Vue {
 
   .counter-count
     /*-- style --*/
-    color #424242
     font-weight 500
     font-size 46px
-    text-shadow: 1px  1px 0.5px #ffffff,
-      -1px  1px 0.5px #ffffff,
-      1px -1px 0.5px #ffffff,
-      -1px -1px 0.5px #ffffff,
-      1px  0px 0.5px #ffffff,
-      0px  1px 0.5px #ffffff,
-      -1px  0px 0.5px #ffffff,
-      0px -1px 0.5px #ffffff
     /*-- end */
 
     /*-- layout --*/
@@ -158,13 +142,4 @@ export default class counter extends Vue {
     grid-row 4 / 5
     grid-column 2 / 3
     /*-- end --*/
-    .counter-icon
-      text-shadow: 1px  1px 0.5px #000,
-        -1px  1px 0.5px #000,
-        1px -1px 0.5px #000,
-        -1px -1px 0.5px #000,
-        1px  0px 0.5px #000,
-        0px  1px 0.5px #000,
-        -1px  0px 0.5px #000,
-        0px -1px 0.5px #000
 </style>
