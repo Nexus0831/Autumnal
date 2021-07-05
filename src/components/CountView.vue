@@ -4,15 +4,17 @@
     <div class="counter-area card-texture">
       <div class="counter-container">
         <template v-for="counter in group.counters">
-          <Counter
-            :key="counter.key"
-            :key-number="counter.key"
-            :name="counter.name"
-            :background-color="counter.backgroundColor"
-            :text-color="counter.textColor"
-            :count="counter.count"
-            @update-action="dialogEditOpen"
-          />
+          <div :key="counter.key" class="counter-box">
+            <Counter
+              :key="counter.key"
+              :key-number="counter.key"
+              :name="counter.name"
+              :background-color="counter.backgroundColor"
+              :text-color="counter.textColor"
+              :count="counter.count"
+              @update-action="dialogEditOpen"
+            />
+          </div>
           <transition name="alert" :key="counter.key">
             <Alert
               :title="`カウンター ${counter.name}を削除しますか？`"
@@ -23,14 +25,16 @@
             />
           </transition>
         </template>
-        <CreateCounterButton
-          icon="add"
-          style="color: #FFF"
-          rippleColor="rgba(255, 255, 255, 0.2)"
-          hoverColor="#303030"
-          backgroundColor="#424242"
-          @click-action="dialogOpen"
-        />
+        <div class="counter-box">
+          <CreateCounterButton
+            icon="add"
+            style="color: #FFF"
+            rippleColor="rgba(255, 255, 255, 0.2)"
+            hoverColor="#303030"
+            backgroundColor="#424242"
+            @click-action="dialogOpen"
+          />
+        </div>
       </div>
     </div>
     <div class="graph-area card-texture">
@@ -133,46 +137,63 @@ export default class CountView extends Vue {
   /*height 100%*/
   /*grid-template-columns 1fr 12px 30%*/
 
-  @media (max-width 619px)
-    grid-template-rows 1fr 12px 480px
-  @media (min-width 619px)
-    grid-template-rows 1fr 12px 240px
-  @media (min-width 1024px)
-    grid-template-columns 1fr 12px 30%
+  /*@media (max-width 619px)*/
+  /*  grid-template-rows 1fr 12px 480px*/
+  /*@media (min-width 619px)*/
+  /*  grid-template-rows 1fr 12px 240px*/
+  /*@media (min-width 1024px)*/
+  /*  grid-template-columns 1fr 12px 30%*/
+
+  grid-template-rows 1fr 12px 240px
 
   .counter-area
     display grid
     grid-template-rows 12px 1fr 12px
     grid-template-columns 12px 1fr 12px
-
-    @media (max-width 619px)
-      grid-row 1 / 2
-    @media (min-width 619px)
-      grid-row 1 / 2
-    @media (min-width 1024px)
-      grid-column 1 / 2
+    grid-row 1 / 2
 
     .counter-container
       display grid
+      /*flex-wrap wrap*/
       grid-row 2 / 3
       grid-column 2 / 3
-      grid-template-columns: repeat(auto-fill, minmax(124px, 124px));
+      width 100%
+      grid-template-columns: repeat(auto-fill, @width / 8);
+      /*grid-template-columns: repeat(auto-fill, minmax(128px, 128px));*/
       /*grid-template-rows: repeat(auto-fill, minmax(112px, 112px));*/
       /* flex-wrap wrap*/
-      gap 12px
+      gap 1%
+
+      /*
+      @media (max-width 619px)
+        grid-template-columns: repeat(auto-fill, calc(100vw / 3));
+      @media (min-width 619px)
+        grid-template-columns: repeat(auto-fill, calc(100vw / 5));
+      @media (min-width 1024px)
+        grid-template-columns: repeat(auto-fill, calc(100vw / 8));
+      */
+
+      .counter-box
+        width 100%
+        padding-top 100%
+        position relative
+        /*
+        @media (max-width 619px)
+          width calc(100vw / 3)
+          height calc(100vw / 3)
+        @media (min-width 619px)
+          width calc(100vw / 5)
+          height calc(100vw / 5)
+        @media (min-width 1024px)
+          width "calc(%s / 8)" % box-size
+          height "calc(%s / 8)" % box-size*/
 
   .graph-area
     display grid
     grid-template-rows 12px 1fr 12px
     grid-template-columns 12px 1fr 12px
 
-    @media (max-width 619px)
-      grid-row 3 / 4
-    @media (min-width 619px)
-      grid-row 3 / 4
-    @media (min-width 1024px)
-      grid-row 1 / 2
-      grid-column 3 / 4
+    grid-row 3 / 4
 
   .card-texture
     background-color #424242

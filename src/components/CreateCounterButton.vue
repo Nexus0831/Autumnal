@@ -52,8 +52,14 @@ export default class CreateCounterButton extends Vue {
 <style lang="stylus" scoped>
 .ccb
   /*--- style ---*/
-  width 124px
-  height 124px
+  /*-- style --*/
+  top 0
+  bottom 0
+  left 0
+  right 0
+  position absolute
+  width 100%
+  /*height 100%*/
   padding 0
   border 0
   cursor pointer

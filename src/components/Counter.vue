@@ -84,8 +84,12 @@ export default class counter extends Vue {
 <style scoped lang="stylus">
 .counter
   /*-- style --*/
-  width 128px
-  height 128px
+  top 0
+  bottom 0
+  left 0
+  right 0
+  position absolute
+  /*height 100%*/
   border-radius 5px
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14),

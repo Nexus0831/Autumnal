@@ -54,7 +54,7 @@ export default new Vuex.Store({
             backgroundColor: '#546e7a',
             textColor: '#ffffff',
             count: 0,
-          }
+          },
         ],
       },
       {
