@@ -108,6 +108,7 @@ export default new Vuex.Store({
       validate: true,
     },
     alertId: '',
+    counterAlertId: '',
   },
   getters: {
     getGroup: (state) => (key: string) => {
@@ -131,6 +132,9 @@ export default new Vuex.Store({
     },
     SET_ALERT_ID: (state, key) => {
       state.alertId = key;
+    },
+    SET_COUNTER_ALERT_ID: (state, key) => {
+      state.counterAlertId = key;
     },
     // *-- group作成用fieldのset --*
     SET_GROUP_CREATE_FIELDS_KEY: (state, key) => {
@@ -242,7 +246,7 @@ export default new Vuex.Store({
 
         context.state.groups.filter((e) => e.key === key)[0].counters.push(counter);
 
-        context.commit('SET_IS_DIALOG_OPEN', false);
+        context.commit('SET_IS_COUNTER_DIALOG_OPEN', false);
         context.dispatch('counterFieldsClear').then();
         // context.dispatch('mindMapRead').then();
       } else {
@@ -264,6 +268,10 @@ export default new Vuex.Store({
         // console.log('update');
         context.dispatch('counterUpdate', context.state.counterCreateFields.key).then();
       }
+    },
+    // TODO Prototype
+    counterDelete: (context, key) => {
+      console.log(`Counter Delete: ${key}`);
     },
     counterFieldsClear: (context) => {
       context.commit('SET_COUNTER_CREATE_FIELDS_KEY', '');

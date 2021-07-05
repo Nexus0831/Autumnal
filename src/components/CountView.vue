@@ -12,6 +12,15 @@
             :count="counter.count"
             @update-action="dialogEditOpen"
           />
+          <transition name="alert" :key="counter.key">
+            <Alert
+              :title="`カウンター ${counter.name}を削除しますか？`"
+              :message="`カウンターは一度削除すると復元はできません`"
+              v-if="counterAlertId === counter.key"
+              @alert-action="counterDelete(counter.key)"
+              @alert-close="alertClose"
+            />
+          </transition>
         </template>
         <CreateCounterButton
           icon="add"
@@ -44,13 +53,15 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import CreateCounterButton from '@/components/CreateCounterButton.vue';
 import Counter from '@/components/Counter.vue';
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import DialogForm from '@/components/DialogForm.vue';
 // eslint-disable-next-line import/named
 import { counter } from '@/interface/interface';
+import Alert from '@/components/Alert.vue';
 
 @Component({
   components: {
+    Alert,
     DialogForm,
     Counter,
     CreateCounterButton,
@@ -60,6 +71,12 @@ import { counter } from '@/interface/interface';
       'group',
       'isCounterDialogOpen',
       'counterCreateFields',
+      'counterAlertId',
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      'counterDelete',
     ]),
   },
 })
@@ -101,6 +118,10 @@ export default class CountView extends Vue {
     )[0].name;
     this.$store.commit('SET_COUNTER_CREATE_FIELDS_KEY', key);
     this.$store.commit('SET_IS_COUNTER_DIALOG_OPEN', true);
+  }
+
+  alertClose() {
+    this.$store.commit('SET_COUNTER_ALERT_ID', '');
   }
 }
 </script>

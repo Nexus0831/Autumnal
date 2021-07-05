@@ -14,9 +14,11 @@
         />
         <transition name="alert" :key="item.key">
           <Alert
-            :title="item.groupName"
+            :title="`カウントグループ ${item.groupName}を削除しますか？`"
+            :message="`カウントグループを削除すると内部のカウントデータも削除され復元はできません`"
             v-if="alertId === item.key"
             @alert-action="groupDelete(item.key)"
+            @alert-close="alertClose"
           />
         </transition>
       </template>
@@ -110,6 +112,10 @@ export default class HomeView extends Vue {
     dialogClose() {
       this.$store.commit('SET_IS_DIALOG_OPEN', false);
       this.$store.dispatch('groupFieldsClear');
+    }
+
+    alertClose() {
+      this.$store.commit('SET_ALERT_ID', '');
     }
 }
 </script>

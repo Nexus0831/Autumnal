@@ -1,11 +1,11 @@
 <template>
   <div id="alert" @click.self.stop="closeAlert">
     <div class="surface">
-      <div class="alert-title">カウントグループ {{ title }}を削除しますか？</div>
+      <div class="alert-title">{{ title }}</div>
       <div class="alert-body">
-        本当にこのカウントグループを削除しますか？
+        本当に削除しますか？
         <br>
-        削除したカウントグループは復元できないので注意してください
+        {{ message }}
       </div>
       <div class="button-container">
         <Button
@@ -32,8 +32,11 @@ import Button from '@/components/Button.vue';
 export default class Alert extends Vue {
   @Prop() private title!: string;
 
+  @Prop() private message!: string;
+
   closeAlert() {
-    this.$store.commit('SET_ALERT_ID', '');
+    // this.$store.commit('SET_ALERT_ID', '');
+    this.$emit('alert-close', '');
   }
 
   alertAction() {

@@ -33,6 +33,7 @@
         style="color: #B00020"
         rippleColor="rgba(176, 0, 32, 0.5)"
         hoverColor="rgba(176, 0, 32, 0.2)"
+        @click-action="alertOpen"
       />
     </div>
   </div>
@@ -63,6 +64,10 @@ export default class counter extends Vue {
 
   editAction() {
     this.$emit('update-action', this.keyNumber);
+  }
+
+  alertOpen() {
+    this.$store.commit('SET_COUNTER_ALERT_ID', this.keyNumber);
   }
 
   minusAction() {
