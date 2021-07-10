@@ -148,7 +148,7 @@ export default class CountView extends Vue {
 
   .counter-area
     display grid
-    grid-template-rows 12px 1fr 12px
+    grid-template-rows 12px 1fr
     grid-template-columns 12px 1fr 12px
     grid-row 1 / 2
 
@@ -158,35 +158,26 @@ export default class CountView extends Vue {
       grid-row 2 / 3
       grid-column 2 / 3
       width 100%
-      grid-template-columns: repeat(auto-fill, @width / 8);
       /*grid-template-columns: repeat(auto-fill, minmax(128px, 128px));*/
       /*grid-template-rows: repeat(auto-fill, minmax(112px, 112px));*/
       /* flex-wrap wrap*/
-      gap 1%
+      /*gap 1%*/
+      /*grid-row-gap 2%*/
 
-      /*
+      /* TODO: ここでカウンターの要素数を変更 */
       @media (max-width 619px)
-        grid-template-columns: repeat(auto-fill, calc(100vw / 3));
+        grid-template-columns: repeat(auto-fill, @width / 3);
       @media (min-width 619px)
-        grid-template-columns: repeat(auto-fill, calc(100vw / 5));
+        grid-template-columns: repeat(auto-fill, @width / 5);
       @media (min-width 1024px)
-        grid-template-columns: repeat(auto-fill, calc(100vw / 8));
-      */
+        grid-template-columns: repeat(auto-fill, @width / 8);
 
       .counter-box
-        width 100%
-        padding-top 100%
+        width 96%
+        padding-top 96%
+        margin-bottom 12px
+        tap-highlight-color: rgba(0, 0, 0, 0);
         position relative
-        /*
-        @media (max-width 619px)
-          width calc(100vw / 3)
-          height calc(100vw / 3)
-        @media (min-width 619px)
-          width calc(100vw / 5)
-          height calc(100vw / 5)
-        @media (min-width 1024px)
-          width "calc(%s / 8)" % box-size
-          height "calc(%s / 8)" % box-size*/
 
   .graph-area
     display grid

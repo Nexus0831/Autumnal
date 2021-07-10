@@ -50,7 +50,8 @@ export default new Vuex.Store({
           },
           {
             key: 6,
-            name: 'アイテム名が長すぎるとどうなるのか実験するためのアイテム名',
+            // name: 'アイテム名が長すぎるとどうなるのか実験するためのアイテム名',
+            name: 'item 6',
             backgroundColor: '#546e7a',
             textColor: '#ffffff',
             count: 0,

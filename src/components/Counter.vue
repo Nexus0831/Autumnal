@@ -89,8 +89,9 @@ export default class counter extends Vue {
   left 0
   right 0
   position absolute
-  /*height 100%*/
+  width 100%
   border-radius 5px
+  outline none
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14),
     0px 2px 1px -1px rgba(0, 0, 0, 0.12)
@@ -99,15 +100,19 @@ export default class counter extends Vue {
   &:hover
     cursor pointer
 
+  &:focus
+    tap-highlight-color: rgba(0, 0, 0, 0);
+
   /*-- layout --*/
   display grid
-  grid-template-rows 8px 24px 52px 40px
-  grid-template-columns 4px 1fr 4px
+  grid-template-rows 10% 15% 45% 30%
+  grid-template-columns 5px 1fr 5px
   /*-- end --*/
 
   .counter-name
     /*-- style --*/
     font-weight bold
+    font-size 1.5vw
     /*-webkit-text-stroke 0.5px #FFFFFF*/
     /*-- end */
 
@@ -123,7 +128,7 @@ export default class counter extends Vue {
   .counter-count
     /*-- style --*/
     font-weight 500
-    font-size 46px
+    font-size 3em
     /*-- end */
 
     /*-- layout --*/
@@ -142,8 +147,11 @@ export default class counter extends Vue {
     /*-- layout --*/
     display inline-flex
     align-items center
-    justify-content:space-evenly
+    justify-content:space-between
     grid-row 4 / 5
     grid-column 2 / 3
     /*-- end --*/
+    .counter-icon
+      @media (max-width 619px)
+        width 20% !important
 </style>
