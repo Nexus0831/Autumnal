@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import colors from '@/assets/colors';
+import firebase from "firebase";
 
 Vue.use(Vuex);
 
