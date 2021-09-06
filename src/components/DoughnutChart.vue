@@ -4,6 +4,11 @@
       :chart-data="chartDate"
       :options="chartOption"
     />
+    <div class="total-container">
+      <Span class="total-count">
+        {{ total }}
+      </Span>
+    </div>
   </div>
 </template>
 
@@ -38,21 +43,46 @@ export default class DoughnutChart extends Vue {
       name: 'アイテム3',
       backgroundColor: '#4caf50',
       textColor: '#000000DE',
-      count: 999,
+      count: 99,
+    },
+    {
+      key: 4,
+      name: 'アイテム4',
+      backgroundColor: '#9c27b0',
+      textColor: '#ffffff',
+      count: 89,
+    },
+    {
+      key: 5,
+      name: 'アイテム5',
+      backgroundColor: '#e91e63',
+      textColor: '#ffffff',
+      count: 12,
+    },
+    {
+      key: 6,
+      // name: 'アイテム名が長すぎるとどうなるのか実験するためのアイテム名',
+      name: 'item 6',
+      backgroundColor: '#546e7a',
+      textColor: '#ffffff',
+      count: 9,
     },
   ];
 
-  private datas:number[] = [];
+  private data:number[] = [];
 
   private colors:string[] = [];
 
   private names:string[] = [];
 
+  private total = 0;
+
   created() {
     this.items.forEach((e) => {
-      this.datas.push(e.count);
+      this.data.push(e.count);
       this.colors.push(e.backgroundColor);
       this.names.push(e.name);
+      this.total += e.count;
     });
   }
 
@@ -62,8 +92,10 @@ export default class DoughnutChart extends Vue {
       {
         type: 'doughnut',
         label: '',
-        data: this.datas,
+        data: this.data,
         backgroundColor: this.colors,
+        borderColor: 'rgba(0, 0, 0, 0)',
+        // hoverOffset: 4,
       },
     ],
   };
@@ -79,5 +111,21 @@ export default class DoughnutChart extends Vue {
   #doughnut-chart
     width 800px
     height 800px
-    background-color #FFFFFF
+    color #FFFFFF
+    /*z-index 999*/
+    /*background-color #FFFFFF*/
+
+    .total-container
+      width 100%
+      height 100%
+      display flex
+      position relative
+      /*z-index 888*/
+      align-items center
+      justify-content center
+      top -100%
+
+      .total-count
+        font-weight 500
+        font-size 64px
 </style>

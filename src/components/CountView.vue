@@ -20,7 +20,7 @@
               :title="`カウンター ${counter.name}を削除しますか？`"
               :message="`カウンターは一度削除すると復元はできません`"
               v-if="counterAlertId === counter.key"
-              @alert-action="counterDelete(counter.key)"
+              @alert-action="deleteAction(counter.key)"
               @alert-close="alertClose"
             />
           </transition>
@@ -103,6 +103,10 @@ export default class CountView extends Vue {
 
   submitAction() {
     this.$store.dispatch('counterSubmit', this.$route.params.key);
+  }
+
+  deleteAction(key: string) {
+    this.$store.dispatch('counterDelete', { groupKey: this.$route.params.key, counterKey: key });
   }
 
   dialogOpen() {

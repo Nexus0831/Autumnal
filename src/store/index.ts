@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import colors from '@/assets/colors';
-import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
@@ -222,16 +221,23 @@ export default new Vuex.Store({
       }
     },
     // TODO Prototype
+    /* eslint-disable no-param-reassign */
     groupUpdate: (context, key) => {
-      console.log(key);
-      console.log(context.state.groupCreateFields);
+      // console.log(key);
+      // console.log(context.state.groupCreateFields);
+      context.state.groups.filter((e) => e.key === key)[0]
+        .groupName = context.state.groupCreateFields.groupName;
+      context.state.groups.filter((e) => e.key === key)[0]
+        .detail = context.state.groupCreateFields.detail;
       context.commit('SET_IS_DIALOG_OPEN', false);
       context.dispatch('groupFieldsClear').then();
     },
     // TODO Prototype
     groupDelete: (context, key) => {
+      context.state.groups = context.state.groups.filter((e) => e.key !== key);
       console.log(`Delete: ${key}`);
     },
+    /* eslint-enable no-param-reassign */
     groupSubmit: (context) => {
       // const key: string = context.state.groupCreateFields.key;
       if (context.state.groupCreateFields.key === '') {
@@ -277,24 +283,31 @@ export default new Vuex.Store({
       }
     },
     // TODO Prototype
-    counterUpdate: (context, key) => {
-      console.log(key);
-      console.log(context.state.counterCreateFields.itemName);
+    /* eslint-disable no-param-reassign */
+    counterUpdate: (context, keys) => {
+      // console.log(key);
+      // console.log(context.state.counterCreateFields.itemName);
+      context.state.groups.filter((e) => e.key === keys.groupKey)[0]
+        .counters.filter((e) => e.key === keys.counterKey)[0]
+        .name = context.state.counterCreateFields.itemName;
       context.commit('SET_IS_COUNTER_DIALOG_OPEN', false);
       context.dispatch('counterFieldsClear').then();
     },
+    // TODO Prototype
+    counterDelete: (context, keys) => {
+      context.state.groups.filter((e) => e.key === keys.groupKey)[0]
+        .counters = context.state.groups.filter((e) => e.key === keys.groupKey)[0]
+          .counters.filter((e) => e.key !== keys.counterKey);
+    },
+    /* eslint-enable no-param-reassign */
     // TODO Prototype
     counterSubmit: (context, key) => {
       if (context.state.counterCreateFields.key === '') {
         context.dispatch('counterCreate', key).then();
       } else {
         // console.log('update');
-        context.dispatch('counterUpdate', context.state.counterCreateFields.key).then();
+        context.dispatch('counterUpdate', { groupKey: key, counterKey: context.state.counterCreateFields.key }).then();
       }
-    },
-    // TODO Prototype
-    counterDelete: (context, key) => {
-      console.log(`Counter Delete: ${key}`);
     },
     counterFieldsClear: (context) => {
       context.commit('SET_COUNTER_CREATE_FIELDS_KEY', '');

@@ -57,6 +57,7 @@ export default class Alert extends Vue {
   width 100%
   height calc(100vh + 20px)
   z-index 200
+  backdrop-filter blur(6px)
   /*--- end ---*/
 
   /*--- layout ---*/
