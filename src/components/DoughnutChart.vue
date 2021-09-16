@@ -3,6 +3,7 @@
     <DoughnutChartComponent
       :chart-data="chartDate"
       :options="chartOption"
+      class="chart-component"
     />
     <div class="total-container">
       <Span class="total-count">
@@ -109,21 +110,24 @@ export default class DoughnutChart extends Vue {
 
 <style lang="stylus" scoped>
   #doughnut-chart
-    width 800px
-    height 800px
+    width 100%
+    height 100%
     color #FFFFFF
+    display flex
+    align-items center
+    justify-content center
     /*z-index 999*/
     /*background-color #FFFFFF*/
 
-    .total-container
+    .chart-component
       width 100%
-      height 100%
-      display flex
+      z-index 888
       position relative
-      /*z-index 888*/
-      align-items center
-      justify-content center
-      top -100%
+
+    .total-container
+      /*display flex*/
+      position absolute
+      z-index 999
 
       .total-count
         font-weight 500

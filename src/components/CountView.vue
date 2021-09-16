@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="graph-area card-texture">
-      ここにはグラフを表示
+      <DoughnutChart class="doughnut-chart"/>
     </div>
     <transition name="fade">
       <DialogForm
@@ -63,9 +63,11 @@ import DialogForm from '@/components/DialogForm.vue';
 // eslint-disable-next-line import/named
 import { counter } from '@/interface/interface';
 import Alert from '@/components/Alert.vue';
+import DoughnutChart from '@/components/DoughnutChart.vue';
 
 @Component({
   components: {
+    DoughnutChart,
     Alert,
     DialogForm,
     Counter,
@@ -148,7 +150,7 @@ export default class CountView extends Vue {
   /*@media (min-width 1024px)*/
   /*  grid-template-columns 1fr 12px 30%*/
 
-  grid-template-rows 1fr 12px 240px
+  grid-template-rows 1fr 12px
 
   .counter-area
     display grid
@@ -186,9 +188,13 @@ export default class CountView extends Vue {
   .graph-area
     display grid
     grid-template-rows 12px 1fr 12px
-    grid-template-columns 12px 1fr 12px
+    grid-template-columns 12px 1fr 12px 1fr 12px
 
     grid-row 3 / 4
+
+    .doughnut-chart
+      grid-column 2 / 3
+      grid-row 2 / 3
 
   .card-texture
     background-color #424242

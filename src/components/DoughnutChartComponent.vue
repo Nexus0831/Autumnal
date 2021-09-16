@@ -17,7 +17,6 @@ export default class DoughnutChartComponent extends Mixins(
   mounted(): void {
     if (this.chartData) {
       this.renderChart(this.chartData, this.options);
-      console.log('render');
     }
   }
 
