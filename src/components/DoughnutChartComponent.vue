@@ -3,7 +3,7 @@ import {
   Component, Mixins, Prop, Watch,
 } from 'vue-property-decorator';
 import Chart from 'chart.js';
-import { Doughnut, Line, mixins } from 'vue-chartjs';
+import { Doughnut, mixins } from 'vue-chartjs';
 
 @Component({})
 export default class DoughnutChartComponent extends Mixins(
@@ -21,7 +21,7 @@ export default class DoughnutChartComponent extends Mixins(
   }
 
   // @Watch('chartData')
-  // onChangeData(val, old): void {
+  // onChangeData(): void {
   //   if (this.chartData) {
   //     this.renderChart(this.chartData, this.options);
   //   }

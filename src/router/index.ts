@@ -23,11 +23,6 @@ const routes: Array<RouteConfig> = [
     name: 'Login',
     component: Login,
   },
-  {
-    path: '/chart',
-    name: 'Chart',
-    component: DoughnutChart,
-  },
 ];
 
 const router = new VueRouter({

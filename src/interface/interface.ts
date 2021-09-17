@@ -1,6 +1,7 @@
 export interface counter {
   key: string,
   name: string,
-  color: string,
+  textColor: string,
+  backgroundColor: string,
   count: number,
 }

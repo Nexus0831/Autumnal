@@ -38,7 +38,10 @@
       </div>
     </div>
     <div class="graph-area card-texture">
-      <DoughnutChart class="doughnut-chart"/>
+      <DoughnutChart
+        class="doughnut-chart"
+        :items="group.counter"
+      />
     </div>
     <transition name="fade">
       <DialogForm
@@ -76,6 +79,7 @@ import DoughnutChart from '@/components/DoughnutChart.vue';
   computed: {
     ...mapState([
       'group',
+      'groups',
       'isCounterDialogOpen',
       'counterCreateFields',
       'counterAlertId',
