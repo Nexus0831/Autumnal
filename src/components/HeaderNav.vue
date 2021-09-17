@@ -5,44 +5,44 @@
       <router-link to="/" class="title">Autumnal</router-link>
     </div>
     <div class="right-container"></div>
-<!--    <div v-if="isSignIn" class="right-container">-->
-<!--      <div class="display-name">-->
-<!--        {{ user.email }}-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div v-else class="right-container">-->
-<!--      <Button-->
-<!--        buttonText="LOGIN"-->
-<!--        style="color: #ffffff"-->
-<!--        rippleColor="rgba(255, 255, 255, 0.5)"-->
-<!--        hoverColor="rgba(255, 255, 255, 0.2)"-->
-<!--        @click-action="signIn"-->
-<!--      />-->
-<!--    </div>-->
+    <div v-if="isSignIn" class="right-container">
+      <div class="display-name">
+        {{ user.email }}
+      </div>
+    </div>
+    <div v-else class="right-container">
+      <Button
+        buttonText="LOGIN"
+        style="color: #ffffff"
+        rippleColor="rgba(255, 255, 255, 0.5)"
+        hoverColor="rgba(255, 255, 255, 0.2)"
+        @click-action="signIn"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-// import Button from '@/components/Button.vue';
-// import { mapState, mapActions } from 'vuex';
+import Button from '@/components/Button.vue';
+import { mapState, mapActions } from 'vuex';
 
-// @Component({
-//   components: {
-//     Button,
-//   },
-//   computed: {
-//     ...mapState([
-//       'isSignIn',
-//       'user'
-//     ]),
-//   },
-//   methods: {
-//     ...mapActions([
-//       'signIn'
-//     ])
-//   }
-// })
+@Component({
+  components: {
+    Button,
+  },
+  computed: {
+    ...mapState([
+      'isSignIn',
+      'user',
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      'signIn',
+    ]),
+  },
+})
 export default class HeaderNav extends Vue {}
 </script>
 

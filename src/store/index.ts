@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import colors from '@/assets/colors';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
@@ -129,6 +130,10 @@ export default new Vuex.Store({
     },
     alertId: '',
     counterAlertId: '',
+    user: {
+      uid: '',
+    },
+    isSignIn: false,
   },
   getters: {
     getGroup: (state) => (key: string) => {
@@ -187,6 +192,12 @@ export default new Vuex.Store({
     // *-- end --*
 
     // groupにcounterを追加
+    SET_USER: (state, user) => {
+      state.user = user;
+    },
+    SET_IS_SIGN_IN: (state, isSignIn) => {
+      state.isSignIn = isSignIn;
+    },
   },
   actions: {
     // count画面にURLに直接アクセスした際にもデータを表示できるようにする
@@ -326,6 +337,15 @@ export default new Vuex.Store({
         .counters.filter((e) => e.key === keys.counterKey)[0].count -= 1;
     },
     /* eslint-enable no-param-reassign */
+    signIn: (context, router) => {
+      firebase.auth().languageCode = 'ja';
+      const provider = new firebase.auth.GoogleAuthProvider();
+
+      firebase.auth().signInWithPopup(provider).then((result) => {
+        context.commit('SET_USER', result.user);
+        router.push('/');
+      }).catch((error) => { console.log(error); });
+    },
   },
   modules: {
   },

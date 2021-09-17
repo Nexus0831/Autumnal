@@ -14,6 +14,7 @@
           rippleColor="rgba(255, 255, 255, 0.5)"
           hoverColor="#a31545"
           backgroundColor="#e91e63"
+          @click-action="signInAction"
         />
       </div>
     </div>
@@ -30,10 +31,9 @@ import ContainedButton from '@/components/ContainedButton.vue';
     },
   })
 export default class Login extends Vue {
-  // signInAction() {
-  //   this.$store.dispatch('signIn', this.$router).then();
-  //   @click-action="signInAction"
-  // }
+  signInAction() {
+    this.$store.dispatch('signIn', this.$router).then();
+  }
 }
 </script>
 
