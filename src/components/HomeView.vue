@@ -84,15 +84,16 @@ export default class HomeView extends Vue {
         },
       },
     ];
-    //   mounted() {
-    //     this.$store.dispatch('mindMapRead').then();
-    //     this.$store.watch(
-    //       state => state.user.uid,
-    //       () => {
-    //         this.$store.dispatch('mindMapRead').then();
-    //       },
-    //     );
-    //   }
+
+    mounted() {
+      this.$store.dispatch('groupRead').then();
+      this.$store.watch(
+        (state) => state.user.uid,
+        () => {
+          this.$store.dispatch('groupRead').then();
+        },
+      );
+    }
 
     dialogOpen() {
       this.fields.forEach((e) => {

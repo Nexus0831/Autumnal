@@ -5,3 +5,11 @@ export interface counter {
   backgroundColor: string,
   count: number,
 }
+
+export interface group {
+  key: string,
+  groupName: string,
+  detail: string,
+  lastUpdate: string,
+  counters: counter[],
+}
