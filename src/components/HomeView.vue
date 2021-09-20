@@ -86,11 +86,11 @@ export default class HomeView extends Vue {
     ];
 
     mounted() {
-      this.$store.dispatch('groupRead').then();
+      this.$store.dispatch('groupsRead').then();
       this.$store.watch(
         (state) => state.user.uid,
         () => {
-          this.$store.dispatch('groupRead').then();
+          this.$store.dispatch('groupsRead').then();
         },
       );
     }

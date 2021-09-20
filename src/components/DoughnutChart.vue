@@ -18,14 +18,14 @@ import {
   Component, Vue, Prop, Watch,
 } from 'vue-property-decorator';
 import { ChartData, ChartOptions } from 'chart.js';
-import { counter } from '@/interface/interface';
+import { Counter } from '@/interface/interface';
 import DoughnutChartComponent from '@/components/DoughnutChartComponent.vue';
 
 @Component({
   components: { DoughnutChartComponent },
 })
 export default class DoughnutChart extends Vue {
-  @Prop() private items!: counter[];
+  @Prop() private items!: Counter[];
   // private items = [
   //   {
   //     key: 1,

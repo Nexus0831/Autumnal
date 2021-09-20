@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import colors from '@/assets/colors';
-// import { group } from '@/interface/interface';
+import { Group } from '@/interface/interface';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
@@ -11,7 +11,13 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     groups: [],
-    group: {},
+    group: {
+      key: '',
+      groupName: '',
+      detail: '',
+      lastUpdate: '',
+      counters: [],
+    },
     isDialogOpen: false,
     isCounterDialogOpen: false,
     groupCreateFields: {
@@ -96,13 +102,54 @@ export default new Vuex.Store({
   },
   actions: {
     // count画面にURLに直接アクセスした際にもデータを表示できるようにする
-    groupRead: (context) => {
+    groupRead: (context, key) => {
+      if (context.state.user.uid !== '') {
+        firebase.database().ref(`/users/${context.state.user.uid}/groups/${key}`)
+          .once('value').then((snapshot) => {
+            const counters:Record<string, unknown>[] = [];
+
+            if (typeof snapshot.val().counters !== 'undefined') {
+              const cos = Object.entries(snapshot.val().counters)
+                .map(([id, value]) => ({ key: id, value }));
+
+              cos.forEach((counter: any) => {
+                counters.push({ key: counter.key, ...counter.value });
+              });
+            }
+            const group = {
+              key: snapshot.key,
+              groupName: snapshot.val().groupName,
+              detail: snapshot.val().detail,
+              lastUpdate: snapshot.val().lastUpdate,
+              counters,
+            };
+            context.commit('SET_GROUP', group);
+          });
+      }
+    },
+    groupsRead: (context) => {
       firebase.database().ref(`/users/${context.state.user.uid}/groups`)
         .once('value').then((snapshot) => {
           const groups: Record<string, unknown>[] = [];
 
-          snapshot.forEach((item) => {
-            groups.push({ key: item.key, ...item.val() });
+          snapshot.forEach((item: any) => {
+            const counters:Record<string, unknown>[] = [];
+            if (typeof item.val().counters !== 'undefined') {
+              const cos = Object.entries(item.val().counters)
+                .map(([key, value]) => ({ key, value }));
+
+              cos.forEach((counter: any) => {
+                counters.push({ key: counter.key, ...counter.value });
+              });
+            }
+
+            groups.push({
+              key: item.key,
+              groupName: item.val().groupName,
+              detail: item.val().detail,
+              lastUpdate: item.val().lastUpdate,
+              counters,
+            });
           });
 
           context.commit('SET_GROUPS', groups);
@@ -125,7 +172,7 @@ export default new Vuex.Store({
           .then(() => {
             context.commit('SET_IS_DIALOG_OPEN', false);
             context.dispatch('groupFieldsClear').then();
-            context.dispatch('groupRead').then();
+            context.dispatch('groupsRead').then();
           });
       } else {
         context.commit('SET_GROUP_CREATE_FIELDS_VALIDATE', false);
@@ -143,7 +190,7 @@ export default new Vuex.Store({
         }).then(() => {
           context.commit('SET_IS_DIALOG_OPEN', false);
           context.dispatch('groupFieldsClear');
-          context.dispatch('groupRead').then();
+          context.dispatch('groupsRead').then();
         });
       } else {
         context.commit('SET_GROUP_CREATE_FIELDS_VALIDATE', false);
@@ -152,16 +199,14 @@ export default new Vuex.Store({
     // TODO Prototype
     groupDelete: (context, key) => {
       firebase.database().ref(`/users/${context.state.user.uid}/groups/${key}`).remove().then(() => {
-        context.dispatch('groupRead').then();
+        context.dispatch('groupsRead').then();
       });
     },
     /* eslint-enable no-param-reassign */
     groupSubmit: (context) => {
-      // const key: string = context.state.groupCreateFields.key;
       if (context.state.groupCreateFields.key === '') {
         context.dispatch('groupCreate').then();
       } else {
-        // console.log('update');
         context.dispatch('groupUpdate', context.state.groupCreateFields.key).then();
       }
     },
@@ -174,32 +219,35 @@ export default new Vuex.Store({
     },
     // TODO Prototype
     counterCreate: (context, key) => {
-      // if (context.state.counterCreateFields.itemName !== '') {
-      //   // HUEをランダムに取得
-      //   let colorList = colors;
-      //   // すでにcounterに存在するHUEを削除したカラーリストを作る。
-      //   context.state.groups.filter((e) => e.key === key)[0].counters.forEach((item) => {
-      //     colorList = colorList.filter((c) => c.backgroundColor !== item.backgroundColor);
-      //   });
-      //
-      //   const color = colorList[(Math.floor(Math.random() * colorList.length))];
-      //   const counter = {
-      //     key: context.state.groups.filter((e) => e.key === key)[0].counters.length + 1,
-      //     name: context.state.counterCreateFields.itemName,
-      //     backgroundColor: color.backgroundColor,
-      //     textColor: color.textColor,
-      //     count: 0,
-      //   };
-      //
-      //   context.state.groups.filter((e) => e.key === key)[0].counters.push(counter);
-      //
-      //   context.commit('SET_IS_COUNTER_DIALOG_OPEN', false);
-      //   context.dispatch('counterFieldsClear').then();
-      //   // context.dispatch('mindMapRead').then();
-      // } else {
-      //   context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', false);
-      // }
-      console.log('create');
+      if (context.state.counterCreateFields.itemName !== '') {
+        let colorList = colors;
+        // すでにcounterに存在するHUEを削除したカラーリストを作る。
+        // const currentGroup: Group = context.state.group;
+        // console.log(currentGroup);
+        // if (typeof currentGroup.counters !== 'undefined') {
+        // }
+        context.state.group.counters.forEach((item: any) => {
+          colorList = colorList.filter((c) => c.backgroundColor !== item.backgroundColor);
+        });
+
+        const color = colorList[(Math.floor(Math.random() * colorList.length))];
+
+        const data: Record<string, unknown> = {
+          name: context.state.counterCreateFields.itemName,
+          backgroundColor: color.backgroundColor,
+          textColor: color.textColor,
+          count: 0,
+        };
+
+        firebase.database().ref(`/users/${context.state.user.uid}/groups/${key}/counters`).push().update(data)
+          .then(() => {
+            context.commit('SET_IS_COUNTER_DIALOG_OPEN', false);
+            context.dispatch('counterFieldsClear').then();
+            context.dispatch('groupRead', key).then();
+          });
+      } else {
+        context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', false);
+      }
     },
     // TODO Prototype
     /* eslint-disable no-param-reassign */

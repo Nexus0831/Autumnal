@@ -64,7 +64,7 @@ import Counter from '@/components/Counter.vue';
 import { mapActions, mapState } from 'vuex';
 import DialogForm from '@/components/DialogForm.vue';
 // eslint-disable-next-line import/named
-import { counter } from '@/interface/interface';
+import { Counter as counter } from '@/interface/interface';
 import Alert from '@/components/Alert.vue';
 import DoughnutChart from '@/components/DoughnutChart.vue';
 
@@ -104,7 +104,14 @@ export default class CountView extends Vue {
 
   mounted() {
     // groupを読み込み
-    this.$store.dispatch('groupRead', this.$route.params.key).then();
+    this.$store.dispatch('groupRead', this.$route.params.key);
+
+    this.$store.watch(
+      (state) => state.user.uid,
+      () => {
+        this.$store.dispatch('groupRead', this.$route.params.key);
+      },
+    );
   }
 
   submitAction() {

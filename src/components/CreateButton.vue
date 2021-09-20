@@ -6,7 +6,7 @@
       @click.capture="$emit('click-action')"
     >
       <i class="material-icons">add</i>
-      Create New MindMap
+      Create New CountGroup
     </div>
   </div>
 </template>
@@ -43,7 +43,7 @@ export default class CreateButton extends Vue {
     font-size 20px
     font-weight 400
     height 40px
-    width 260px
+    width 360px
     border-radius 4px
     transition background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
       box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,

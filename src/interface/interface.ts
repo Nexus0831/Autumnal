@@ -1,4 +1,4 @@
-export interface counter {
+export interface Counter {
   key: string,
   name: string,
   textColor: string,
@@ -6,10 +6,10 @@ export interface counter {
   count: number,
 }
 
-export interface group {
+export interface Group {
   key: string,
   groupName: string,
   detail: string,
   lastUpdate: string,
-  counters: counter[],
+  counters: Counter[],
 }
