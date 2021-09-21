@@ -221,11 +221,7 @@ export default new Vuex.Store({
     counterCreate: (context, key) => {
       if (context.state.counterCreateFields.itemName !== '') {
         let colorList = colors;
-        // すでにcounterに存在するHUEを削除したカラーリストを作る。
-        // const currentGroup: Group = context.state.group;
-        // console.log(currentGroup);
-        // if (typeof currentGroup.counters !== 'undefined') {
-        // }
+
         context.state.group.counters.forEach((item: any) => {
           colorList = colorList.filter((c) => c.backgroundColor !== item.backgroundColor);
         });
@@ -252,21 +248,28 @@ export default new Vuex.Store({
     // TODO Prototype
     /* eslint-disable no-param-reassign */
     counterUpdate: (context, keys) => {
-      // console.log(key);
-      // console.log(context.state.counterCreateFields.itemName);
-      // context.state.groups.filter((e) => e.key === keys.groupKey)[0]
-      //   .counters.filter((e) => e.key === keys.counterKey)[0]
-      //   .name = context.state.counterCreateFields.itemName;
-      // context.commit('SET_IS_COUNTER_DIALOG_OPEN', false);
-      // context.dispatch('counterFieldsClear').then();
-      console.log('update');
+      if (context.state.counterCreateFields.itemName !== '') {
+        firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
+          .update({
+            name: context.state.counterCreateFields.itemName,
+          }).then(() => {
+            context.commit('SET_IS_COUNTER_DIALOG_OPEN', false);
+            context.dispatch('counterFieldsClear').then();
+            context.dispatch('groupRead', keys.groupKey).then();
+          });
+      } else {
+        context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', false);
+      }
     },
     // TODO Prototype
     counterDelete: (context, keys) => {
       // context.state.groups.filter((e) => e.key === keys.groupKey)[0]
       //   .counters = context.state.groups.filter((e) => e.key === keys.groupKey)[0]
       //     .counters.filter((e) => e.key !== keys.counterKey);
-      console.log('delete');
+      firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
+        .remove().then(() => {
+          context.dispatch('groupRead', keys.groupKey).then();
+        });
     },
     /* eslint-enable no-param-reassign */
     // TODO Prototype

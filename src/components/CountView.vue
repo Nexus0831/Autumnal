@@ -17,7 +17,7 @@
           </div>
           <transition name="alert" :key="counter.key">
             <Alert
-              :title="`カウンター ${counter.name}を削除しますか？`"
+              :title="`カウンター「${counter.name}」を削除しますか？`"
               :message="`カウンターは一度削除すると復元はできません`"
               v-if="counterAlertId === counter.key"
               @alert-action="deleteAction(counter.key)"
