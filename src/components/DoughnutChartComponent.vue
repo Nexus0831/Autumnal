@@ -15,16 +15,16 @@ export default class DoughnutChartComponent extends Mixins(
   @Prop() public options!: Chart.ChartOptions;
 
   mounted(): void {
-    if (this.chartData) {
-      this.renderChart(this.chartData, this.options);
-    }
+    this.renderChart(this.chartData, this.options);
   }
 
-  // @Watch('chartData')
-  // onChangeData(): void {
-  //   if (this.chartData) {
-  //     this.renderChart(this.chartData, this.options);
-  //   }
-  // }
+  load() {
+    this.renderChart(this.chartData, this.options);
+  }
+
+  @Watch('chartData')
+  onChangeData(): void {
+    this.load();
+  }
 }
 </script>

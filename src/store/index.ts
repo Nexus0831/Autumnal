@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import colors from '@/assets/colors';
-import { Group } from '@/interface/interface';
+import { Group, Counter } from '@/interface/interface';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
@@ -291,13 +291,29 @@ export default new Vuex.Store({
     addOnceCount: (context, keys) => {
       // context.state.groups.filter((e) => e.key === keys.groupKey)[0]
       //   .counters.filter((e) => e.key === keys.counterKey)[0].count += 1;
-      console.log('add');
+      const counter: Counter = context.state.group.counters
+        .filter((e: any) => e.key === keys.counterKey)[0];
+      firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
+        .update({
+          count: counter.count + 1,
+        }).then(() => {
+          context.dispatch('groupRead', keys.groupKey).then();
+        });
     },
     // TODO Prototype
     oneLessCount: (context, keys) => {
       // context.state.groups.filter((e) => e.key === keys.groupKey)[0]
       //   .counters.filter((e) => e.key === keys.counterKey)[0].count -= 1;
-      console.log('less');
+      const counter: Counter = context.state.group.counters
+        .filter((e: any) => e.key === keys.counterKey)[0];
+      if (counter.count > 0) {
+        firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
+          .update({
+            count: counter.count - 1,
+          }).then(() => {
+            context.dispatch('groupRead', keys.groupKey).then();
+          });
+      }
     },
     /* eslint-enable no-param-reassign */
     signIn: (context, router) => {

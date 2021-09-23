@@ -40,7 +40,6 @@
     <div class="graph-area card-texture">
       <DoughnutChart
         class="doughnut-chart"
-        :items="group.counter"
       />
     </div>
     <transition name="fade">

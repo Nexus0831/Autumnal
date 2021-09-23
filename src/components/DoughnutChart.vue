@@ -25,7 +25,7 @@ import DoughnutChartComponent from '@/components/DoughnutChartComponent.vue';
   components: { DoughnutChartComponent },
 })
 export default class DoughnutChart extends Vue {
-  @Prop() private items!: Counter[];
+  // @Prop() private items!: Counter[];
   // private items = [
   //   {
   //     key: 1,
@@ -80,39 +80,71 @@ export default class DoughnutChart extends Vue {
 
   private total = 0;
 
-  beforeUpdate() {
-    this.items.forEach((e) => {
-      this.data.push(e.count);
-      this.colors.push(e.backgroundColor);
-      this.names.push(e.name);
-      this.total += e.count;
-    });
+  chartDate: ChartData = {};
+
+  // beforeUpdate() {
+  //   console.log('update');
+  //   this.items.forEach((e) => {
+  //     this.data.push(e.count);
+  //     this.colors.push(e.backgroundColor);
+  //     this.names.push(e.name);
+  //     this.total += e.count;
+  //   });
+  // }
+
+  dataClean() {
+    this.names = [];
+    this.data = [];
+    this.colors = [];
+    this.total = 0;
   }
 
-  @Watch('items')
   dataIsSet() {
-    this.items.forEach((e) => {
-      console.log(e);
+    this.$store.state.group.counters.forEach((e: Counter) => {
       this.data.push(e.count);
       this.colors.push(e.backgroundColor);
       this.names.push(e.name);
       this.total += e.count;
     });
+    // this.chartDate.labels = this.names;
+    this.chartDate = {
+      labels: this.names,
+      datasets: [
+        {
+          type: 'doughnut',
+          label: '',
+          data: this.data,
+          backgroundColor: this.colors,
+          borderColor: 'rgba(0, 0, 0, 0)',
+          // hoverOffset: 4,
+        },
+      ],
+    };
   }
 
-  chartDate: ChartData = {
-    labels: this.names,
-    datasets: [
-      {
-        type: 'doughnut',
-        label: '',
-        data: this.data,
-        backgroundColor: this.colors,
-        borderColor: 'rgba(0, 0, 0, 0)',
-        // hoverOffset: 4,
+  created() {
+    this.$store.watch(
+      (state) => state.group,
+      () => {
+        this.dataClean();
+        this.dataIsSet();
       },
-    ],
-  };
+    );
+  }
+
+  // chartDate: ChartData = {
+  //   labels: this.names,
+  //   datasets: [
+  //     {
+  //       type: 'doughnut',
+  //       label: '',
+  //       data: this.data,
+  //       backgroundColor: this.colors,
+  //       borderColor: 'rgba(0, 0, 0, 0)',
+  //       // hoverOffset: 4,
+  //     },
+  //   ],
+  // };
 
   chartOption: ChartOptions = {
     responsive: true,
