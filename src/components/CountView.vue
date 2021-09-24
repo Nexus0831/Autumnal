@@ -41,6 +41,9 @@
       <DoughnutChart
         class="doughnut-chart"
       />
+      <BarChart
+        class="bar-chart"
+      />
     </div>
     <transition name="fade">
       <DialogForm
@@ -66,9 +69,11 @@ import DialogForm from '@/components/DialogForm.vue';
 import { Counter as counter } from '@/interface/interface';
 import Alert from '@/components/Alert.vue';
 import DoughnutChart from '@/components/DoughnutChart.vue';
+import BarChart from '@/components/BarChart.vue';
 
 @Component({
   components: {
+    BarChart,
     DoughnutChart,
     Alert,
     DialogForm,
@@ -203,8 +208,12 @@ export default class CountView extends Vue {
     grid-row 3 / 4
 
     .doughnut-chart
-      grid-column 2 / 3
       grid-row 2 / 3
+      grid-column 2 / 3
+
+    .bar-chart
+      grid-row 2 / 3
+      grid-column 4 / 5
 
   .card-texture
     background-color #424242

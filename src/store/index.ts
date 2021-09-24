@@ -158,7 +158,6 @@ export default new Vuex.Store({
           context.commit('SET_GROUPS', []);
         });
     },
-    // TODO Prototype
     groupCreate: (context) => {
       if (context.state.groupCreateFields.groupName !== '') {
         const nowDate = new Date();
@@ -178,7 +177,6 @@ export default new Vuex.Store({
         context.commit('SET_GROUP_CREATE_FIELDS_VALIDATE', false);
       }
     },
-    // TODO Prototype
     /* eslint-disable no-param-reassign */
     groupUpdate: (context, key) => {
       if (context.state.groupCreateFields.groupName !== '') {
@@ -196,7 +194,6 @@ export default new Vuex.Store({
         context.commit('SET_GROUP_CREATE_FIELDS_VALIDATE', false);
       }
     },
-    // TODO Prototype
     groupDelete: (context, key) => {
       firebase.database().ref(`/users/${context.state.user.uid}/groups/${key}`).remove().then(() => {
         context.dispatch('groupsRead').then();
@@ -217,7 +214,6 @@ export default new Vuex.Store({
       context.commit('SET_GROUP_CREATE_FIELDS_LAST_UPDATE', '');
       context.commit('SET_GROUP_CREATE_FIELDS_VALIDATE', true);
     },
-    // TODO Prototype
     counterCreate: (context, key) => {
       if (context.state.counterCreateFields.itemName !== '') {
         let colorList = colors;
@@ -245,7 +241,6 @@ export default new Vuex.Store({
         context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', false);
       }
     },
-    // TODO Prototype
     /* eslint-disable no-param-reassign */
     counterUpdate: (context, keys) => {
       if (context.state.counterCreateFields.itemName !== '') {
@@ -261,7 +256,6 @@ export default new Vuex.Store({
         context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', false);
       }
     },
-    // TODO Prototype
     counterDelete: (context, keys) => {
       // context.state.groups.filter((e) => e.key === keys.groupKey)[0]
       //   .counters = context.state.groups.filter((e) => e.key === keys.groupKey)[0]
@@ -272,7 +266,6 @@ export default new Vuex.Store({
         });
     },
     /* eslint-enable no-param-reassign */
-    // TODO Prototype
     counterSubmit: (context, key) => {
       if (context.state.counterCreateFields.key === '') {
         context.dispatch('counterCreate', key).then();
@@ -287,7 +280,6 @@ export default new Vuex.Store({
       context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', true);
     },
     /* eslint-disable no-param-reassign */
-    // TODO Prototype
     addOnceCount: (context, keys) => {
       // context.state.groups.filter((e) => e.key === keys.groupKey)[0]
       //   .counters.filter((e) => e.key === keys.counterKey)[0].count += 1;
@@ -300,7 +292,6 @@ export default new Vuex.Store({
           context.dispatch('groupRead', keys.groupKey).then();
         });
     },
-    // TODO Prototype
     oneLessCount: (context, keys) => {
       // context.state.groups.filter((e) => e.key === keys.groupKey)[0]
       //   .counters.filter((e) => e.key === keys.counterKey)[0].count -= 1;

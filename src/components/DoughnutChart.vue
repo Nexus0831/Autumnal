@@ -25,53 +25,6 @@ import DoughnutChartComponent from '@/components/DoughnutChartComponent.vue';
   components: { DoughnutChartComponent },
 })
 export default class DoughnutChart extends Vue {
-  // @Prop() private items!: Counter[];
-  // private items = [
-  //   {
-  //     key: 1,
-  //     name: 'アイテム1',
-  //     backgroundColor: '#2196f3',
-  //     textColor: '#ffffff',
-  //     count: 5,
-  //   },
-  //   {
-  //     key: 2,
-  //     name: 'アイテム2',
-  //     backgroundColor: '#ffeb3b',
-  //     textColor: '#000000DE',
-  //     count: 12,
-  //   },
-  //   {
-  //     key: 3,
-  //     name: 'アイテム3',
-  //     backgroundColor: '#4caf50',
-  //     textColor: '#000000DE',
-  //     count: 99,
-  //   },
-  //   {
-  //     key: 4,
-  //     name: 'アイテム4',
-  //     backgroundColor: '#9c27b0',
-  //     textColor: '#ffffff',
-  //     count: 89,
-  //   },
-  //   {
-  //     key: 5,
-  //     name: 'アイテム5',
-  //     backgroundColor: '#e91e63',
-  //     textColor: '#ffffff',
-  //     count: 12,
-  //   },
-  //   {
-  //     key: 6,
-  //     // name: 'アイテム名が長すぎるとどうなるのか実験するためのアイテム名',
-  //     name: 'item 6',
-  //     backgroundColor: '#546e7a',
-  //     textColor: '#ffffff',
-  //     count: 9,
-  //   },
-  // ];
-
   private data:number[] = [];
 
   private colors:string[] = [];
@@ -81,16 +34,6 @@ export default class DoughnutChart extends Vue {
   private total = 0;
 
   chartDate: ChartData = {};
-
-  // beforeUpdate() {
-  //   console.log('update');
-  //   this.items.forEach((e) => {
-  //     this.data.push(e.count);
-  //     this.colors.push(e.backgroundColor);
-  //     this.names.push(e.name);
-  //     this.total += e.count;
-  //   });
-  // }
 
   dataClean() {
     this.names = [];
@@ -132,22 +75,13 @@ export default class DoughnutChart extends Vue {
     );
   }
 
-  // chartDate: ChartData = {
-  //   labels: this.names,
-  //   datasets: [
-  //     {
-  //       type: 'doughnut',
-  //       label: '',
-  //       data: this.data,
-  //       backgroundColor: this.colors,
-  //       borderColor: 'rgba(0, 0, 0, 0)',
-  //       // hoverOffset: 4,
-  //     },
-  //   ],
-  // };
-
   chartOption: ChartOptions = {
     responsive: true,
+    legend: {
+      labels: {
+        fontColor: 'white',
+      },
+    },
   }
 }
 
