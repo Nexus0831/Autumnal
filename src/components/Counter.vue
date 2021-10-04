@@ -16,7 +16,7 @@
         icon="remove"
         v-bind:style="{ color: textColor }"
         rippleColor="rgba(255, 255, 255, 0.5)"
-        hoverColor="rgba(255, 255, 255, 0.2)"
+        :hoverColor="[ textColor === '#ffffff' ? '#000000DE' : '#ffffff' ]"
         @click-action="minusAction"
       />
       <MaterialIcon
@@ -24,15 +24,15 @@
         icon="edit"
         v-bind:style="{ color: textColor }"
         rippleColor="rgba(255, 255, 255, 0.5)"
-        hoverColor="rgba(255, 255, 255, 0.2)"
+        :hoverColor="[ textColor === '#ffffff' ? '#000000DE' : '#ffffff' ]"
         @click-action="editAction"
       />
       <MaterialIcon
         class="counter-icon"
         icon="delete"
-        style="color: #B00020"
+        style="color: #b00020"
         rippleColor="rgba(176, 0, 32, 0.5)"
-        hoverColor="rgba(176, 0, 32, 0.2)"
+        hoverColor="#e33353"
         @click-action="alertOpen"
       />
     </div>

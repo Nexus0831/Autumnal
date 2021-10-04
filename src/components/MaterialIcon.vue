@@ -6,7 +6,7 @@
       @click.capture.stop="$emit('click-action')"
       @mouseover="hoverIn"
       @mouseout="hoverOut"
-      v-bind:style="{ backgroundColor: backgroundColor}"
+      v-bind:style="{ color: color}"
     >
       <i class="material-icons">{{ icon }}</i>
     </div>
@@ -31,16 +31,16 @@ export default class MaterialIcon extends Vue {
 
   @Prop() private hoverColor!: string;
 
-  private backgroundColor = 'transparent';
+  private color = 'inherit';
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   hoverIn() {
-    this.backgroundColor = this.hoverColor;
+    this.color = this.hoverColor;
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   hoverOut() {
-    this.backgroundColor = 'transparent';
+    this.color = 'inherit';
   }
 }
 </script>
