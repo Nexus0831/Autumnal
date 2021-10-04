@@ -6,9 +6,12 @@
       class="chart-component"
     />
     <div class="total-container">
-      <Span class="total-count">
+      <span class="total-title">
+        Total
+      </span>
+      <span class="total-count">
         {{ total }}
-      </Span>
+      </span>
     </div>
   </div>
 </template>
@@ -104,9 +107,16 @@ export default class DoughnutChart extends Vue {
       position relative
 
     .total-container
-      /*display flex*/
+      display flex
       position absolute
       z-index 999
+      align-items center
+      justify-content center
+      flex-flow column
+
+      .total-title
+        font-weight 500
+        font-size 48px
 
       .total-count
         font-weight 500
