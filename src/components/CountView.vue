@@ -1,6 +1,9 @@
 <template>
   <div id="count">
 <!--    test{{ this.$route.params.key }}-->
+    <div class="group-name-area">
+      {{ group.groupName }}
+    </div>
     <div class="counter-area card-texture">
       <div class="counter-container">
         <template v-for="counter in group.counters">
@@ -165,13 +168,22 @@ export default class CountView extends Vue {
   /*@media (min-width 1024px)*/
   /*  grid-template-columns 1fr 12px 30%*/
 
-  grid-template-rows 1fr 12px
+  grid-template-rows 48px 12px 1fr 12px
+
+  .group-name-area
+    display flex
+    align-items center
+    justify-content center
+    color #FFFFFF
+    font-weight 500
+    font-size 36px
+    grid-row 1 / 2
 
   .counter-area
     display grid
     grid-template-rows 12px 1fr
     grid-template-columns 12px 1fr 12px
-    grid-row 1 / 2
+    grid-row 3 / 4
 
     .counter-container
       display grid
@@ -205,7 +217,7 @@ export default class CountView extends Vue {
     grid-template-rows 12px 1fr 12px
     grid-template-columns 12px 1fr 12px 1fr 12px
 
-    grid-row 3 / 4
+    grid-row 5 / 6
 
     .doughnut-chart
       grid-row 2 / 3
