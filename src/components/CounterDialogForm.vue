@@ -21,9 +21,23 @@
         <MaterialInput
           idName="ItemName"
           labelText="ItemName"
-          value=""
-          @change-action="itemaNameChangeAction"
+          :value="textValue"
+          @change-action="itemNameChangeAction"
         />
+      </div>
+      <div class="color-list">
+        <!-- 1行12色で表示 -->
+        <div class="color-list-container">
+          <template v-for="color in colorList">
+            <div class="color-box" :key="color.backgroundColor">
+              <div
+                class="color-contents"
+                v-bind:style="{ backgroundColor: color.backgroundColor}"
+              >
+              </div>
+            </div>
+          </template>
+        </div>
       </div>
       <div class="button-container">
         <Button
@@ -49,6 +63,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import MaterialInput from '@/components/MaterialInput.vue';
 import Button from '@/components/Button.vue';
+import colors from '@/assets/colors';
 
   @Component({
     components: {
@@ -62,11 +77,15 @@ export default class CounterDialogForm extends Vue {
     @Prop() private validMessage!: string;
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    @Prop() private fields!: Array<object>;
+    // @Prop() private fields!: Array<object>;
+
+    @Prop() private textValue!: string;
 
     @Prop() private validate!: boolean;
 
-    itemaNameChangeAction(itemName: string) {
+    colorList = colors;
+
+    itemNameChangeAction(itemName: string) {
       this.$store.commit('SET_COUNTER_CREATE_FIELDS_ITEM_NAME', itemName);
     }
 }
@@ -133,7 +152,36 @@ export default class CounterDialogForm extends Vue {
     .dialog-form-input
       /*--- style ---*/
       padding 0 24px 24px
-    /*--- end ---*/
+      /*--- end ---*/
+
+    .color-list
+      width 100%
+
+    .color-list-container
+      padding 0 24px 24px
+      display grid
+      grid-auto-flow column
+      /*grid-template-columns: repeat(auto-fill, @width / 12);*/
+      grid-template-rows: repeat(12, 1fr);
+      grid-template-columns: repeat(17, 1fr);
+
+    .color-box
+      width 100%
+      padding-top 100%
+      position relative
+      transition all 0.2s
+
+      &:hover
+        cursor pointer
+        transform scale(0.8, 0.8)
+
+    .color-contents
+      top 0
+      bottom 0
+      left 0
+      right 0
+      position absolute
+      width 100%
 
     .button-container
       /*--- style ---*/

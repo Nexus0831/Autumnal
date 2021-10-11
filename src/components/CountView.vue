@@ -63,6 +63,7 @@
         :validate="counterCreateFields.validate"
         @submit-action="submitAction"
         @dialog-close="dialogClose"
+        :textValue="textValue"
       />
     </transition>
   </div>
@@ -105,15 +106,7 @@ import CounterDialogForm from '@/components/CounterDialogForm.vue';
   },
 })
 export default class CountView extends Vue {
-  fields = [
-    {
-      label: 'ItemName',
-      value: '',
-      changeAction: (itemName: string) => {
-        this.$store.commit('SET_COUNTER_CREATE_FIELDS_ITEM_NAME', itemName);
-      },
-    },
-  ];
+  textValue = '';
 
   mounted() {
     // groupを読み込み
@@ -136,9 +129,10 @@ export default class CountView extends Vue {
   }
 
   dialogOpen() {
-    this.fields.forEach((e) => {
-      e.value = '';
-    });
+    // this.fields.forEach((e) => {
+    //   e.value = '';
+    // });
+    this.textValue = '';
     this.$store.commit('SET_IS_COUNTER_DIALOG_OPEN', true);
   }
 
@@ -148,7 +142,7 @@ export default class CountView extends Vue {
   }
 
   dialogEditOpen(key: string) {
-    this.fields[0].value = this.$store.state.group.counters.filter(
+    this.textValue = this.$store.state.group.counters.filter(
       (e: counter) => e.key === key,
     )[0].name;
     this.$store.commit('SET_COUNTER_CREATE_FIELDS_KEY', key);
