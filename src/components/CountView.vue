@@ -6,6 +6,16 @@
     </div>
     <div class="counter-area card-texture">
       <div class="counter-container">
+        <div class="counter-box">
+          <CreateCounterButton
+            icon="add"
+            style="color: #FFF"
+            rippleColor="rgba(255, 255, 255, 0.2)"
+            hoverColor="#303030"
+            backgroundColor="#424242"
+            @click-action="dialogOpen"
+          />
+        </div>
         <template v-for="counter in group.counters">
           <div :key="counter.key" class="counter-box">
             <Counter
@@ -28,16 +38,6 @@
             />
           </transition>
         </template>
-        <div class="counter-box">
-          <CreateCounterButton
-            icon="add"
-            style="color: #FFF"
-            rippleColor="rgba(255, 255, 255, 0.2)"
-            hoverColor="#303030"
-            backgroundColor="#424242"
-            @click-action="dialogOpen"
-          />
-        </div>
       </div>
     </div>
     <div class="graph-area card-texture">
@@ -49,12 +49,18 @@
       />
     </div>
     <transition name="fade">
-      <DialogForm
+<!--      <CounterDialogForm-->
+<!--        v-if="isCounterDialogOpen"-->
+<!--        formTitle="Counter"-->
+<!--        validMessage="ItemNameが空です"-->
+<!--        :validate="counterCreateFields.validate"-->
+<!--        :fields="fields"-->
+<!--        @submit-action="submitAction"-->
+<!--        @dialog-close="dialogClose"-->
+<!--      />-->
+      <CounterDialogForm
         v-if="isCounterDialogOpen"
-        formTitle="Counter"
-        validMessage="ItemNameが空です"
         :validate="counterCreateFields.validate"
-        :fields="fields"
         @submit-action="submitAction"
         @dialog-close="dialogClose"
       />
@@ -64,22 +70,22 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { mapActions, mapState } from 'vuex';
 import CreateCounterButton from '@/components/CreateCounterButton.vue';
 import Counter from '@/components/Counter.vue';
-import { mapActions, mapState } from 'vuex';
-import DialogForm from '@/components/DialogForm.vue';
 // eslint-disable-next-line import/named
 import { Counter as counter } from '@/interface/interface';
 import Alert from '@/components/Alert.vue';
 import DoughnutChart from '@/components/DoughnutChart.vue';
 import BarChart from '@/components/BarChart.vue';
+import CounterDialogForm from '@/components/CounterDialogForm.vue';
 
 @Component({
   components: {
+    CounterDialogForm,
     BarChart,
     DoughnutChart,
     Alert,
-    DialogForm,
     Counter,
     CreateCounterButton,
   },
@@ -177,7 +183,12 @@ export default class CountView extends Vue {
     color #FFFFFF
     font-weight 500
     font-size 36px
+    /*transition all 0.3s*/
     grid-row 1 / 2
+
+    /*&:hover*/
+    /*  cursor pointer*/
+    /*  color #e91e63*/
 
   .counter-area
     display grid
