@@ -30,7 +30,7 @@ export default new Vuex.Store({
     counterCreateFields: {
       key: '',
       itemName: '',
-      color: '',
+      backgroundColor: '',
       validate: true,
     },
     alertId: '',
@@ -88,8 +88,8 @@ export default new Vuex.Store({
     SET_COUNTER_CREATE_FIELDS_ITEM_NAME: (state, itemName) => {
       state.counterCreateFields.itemName = itemName;
     },
-    SET_COUNTER_CREATE_FIELDS_COLOR: (state, color) => {
-      state.counterCreateFields.color = color;
+    SET_COUNTER_CREATE_FIELDS_BACK_GROUND_COLOR: (state, backgroundColor) => {
+      state.counterCreateFields.backgroundColor = backgroundColor;
     },
     SET_COUNTER_CREATE_FIELDS_VALIDATE: (state, validate) => {
       state.counterCreateFields.validate = validate;
@@ -281,7 +281,7 @@ export default new Vuex.Store({
     counterFieldsClear: (context) => {
       context.commit('SET_COUNTER_CREATE_FIELDS_KEY', '');
       context.commit('SET_COUNTER_CREATE_FIELDS_ITEM_NAME', '');
-      context.commit('SET_COUNTER_CREATE_FIELDS_COLOR', '');
+      context.commit('SET_COUNTER_CREATE_FIELDS_BACK_GROUND_COLOR', '');
       context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', true);
     },
     /* eslint-disable no-param-reassign */

@@ -27,12 +27,27 @@
       </div>
       <div class="color-list">
         <!-- 1行12色で表示 -->
+        <div
+          class="color-value-text"
+          v-bind:style="{
+            color: counterCreateFields.backgroundColor === ''
+            ?
+            'rgba(255, 255, 255, 0.7)' : counterCreateFields.backgroundColor
+          }"
+        >
+          {{
+            counterCreateFields.backgroundColor === ""
+            ?
+            "Color ※未選択の場合はカラーパレットからランダムに設定されます" : counterCreateFields.backgroundColor
+          }}
+        </div>
         <div class="color-list-container">
           <template v-for="color in colorList">
             <div class="color-box" :key="color.backgroundColor">
               <div
                 class="color-contents"
-                v-bind:style="{ backgroundColor: color.backgroundColor}"
+                v-bind:style="{ backgroundColor: color.backgroundColor, color: color.textColor}"
+                @click="colorClickAction(color.backgroundColor, color.textColor)"
               >
               </div>
             </div>
@@ -64,11 +79,17 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import MaterialInput from '@/components/MaterialInput.vue';
 import Button from '@/components/Button.vue';
 import colors from '@/assets/colors';
+import { mapState } from 'vuex';
 
   @Component({
     components: {
       MaterialInput,
       Button,
+    },
+    computed: {
+      ...mapState([
+        'counterCreateFields',
+      ]),
     },
   })
 export default class CounterDialogForm extends Vue {
@@ -87,6 +108,12 @@ export default class CounterDialogForm extends Vue {
 
     itemNameChangeAction(itemName: string) {
       this.$store.commit('SET_COUNTER_CREATE_FIELDS_ITEM_NAME', itemName);
+    }
+
+    colorClickAction(backgroundColor: string, textColor: string) {
+      console.log(backgroundColor);
+      console.log(textColor);
+      this.$store.commit('SET_COUNTER_CREATE_FIELDS_BACK_GROUND_COLOR', backgroundColor);
     }
 }
 </script>
@@ -156,6 +183,12 @@ export default class CounterDialogForm extends Vue {
 
     .color-list
       width 100%
+
+    .color-value-text
+      /*color rgba(255, 255, 255, 0.7)*/
+      font-size 1rem
+      line-height 1
+      padding 0 24px 12px
 
     .color-list-container
       padding 0 24px 24px
