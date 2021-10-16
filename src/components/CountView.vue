@@ -142,10 +142,14 @@ export default class CountView extends Vue {
   }
 
   dialogEditOpen(key: string) {
-    this.textValue = this.$store.state.group.counters.filter(
+    const counterValues = this.$store.state.group.counters.filter(
       (e: counter) => e.key === key,
-    )[0].name;
+    )[0];
+    this.textValue = counterValues.name;
+
     this.$store.commit('SET_COUNTER_CREATE_FIELDS_KEY', key);
+    this.$store.commit('SET_COUNTER_CREATE_FIELDS_BACK_GROUND_COLOR', counterValues.backgroundColor);
+    this.$store.commit('SET_COUNTER_CREATE_FIELDS_TEXT_COLOR', counterValues.textColor);
     this.$store.commit('SET_IS_COUNTER_DIALOG_OPEN', true);
   }
 

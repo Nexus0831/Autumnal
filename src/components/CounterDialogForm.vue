@@ -111,9 +111,8 @@ export default class CounterDialogForm extends Vue {
     }
 
     colorClickAction(backgroundColor: string, textColor: string) {
-      console.log(backgroundColor);
-      console.log(textColor);
       this.$store.commit('SET_COUNTER_CREATE_FIELDS_BACK_GROUND_COLOR', backgroundColor);
+      this.$store.commit('SET_COUNTER_CREATE_FIELDS_TEXT_COLOR', textColor);
     }
 }
 </script>

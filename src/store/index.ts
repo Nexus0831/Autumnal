@@ -31,6 +31,7 @@ export default new Vuex.Store({
       key: '',
       itemName: '',
       backgroundColor: '',
+      textColor: '',
       validate: true,
     },
     alertId: '',
@@ -90,6 +91,9 @@ export default new Vuex.Store({
     },
     SET_COUNTER_CREATE_FIELDS_BACK_GROUND_COLOR: (state, backgroundColor) => {
       state.counterCreateFields.backgroundColor = backgroundColor;
+    },
+    SET_COUNTER_CREATE_FIELDS_TEXT_COLOR: (state, textColor) => {
+      state.counterCreateFields.textColor = textColor;
     },
     SET_COUNTER_CREATE_FIELDS_VALIDATE: (state, validate) => {
       state.counterCreateFields.validate = validate;
@@ -220,18 +224,27 @@ export default new Vuex.Store({
     },
     counterCreate: (context, key) => {
       if (context.state.counterCreateFields.itemName !== '') {
-        let colorList = colors;
+        let counterBackgroundColor = '';
+        let counterTextColor = '';
+        if (context.state.counterCreateFields.backgroundColor === '') {
+          let colorList = colors;
 
-        context.state.group.counters.forEach((item: any) => {
-          colorList = colorList.filter((c) => c.backgroundColor !== item.backgroundColor);
-        });
+          context.state.group.counters.forEach((item: any) => {
+            colorList = colorList.filter((c) => c.backgroundColor !== item.backgroundColor);
+          });
 
-        const color = colorList[(Math.floor(Math.random() * colorList.length))];
+          const colorSet = colorList[(Math.floor(Math.random() * colorList.length))];
+          counterBackgroundColor = colorSet.backgroundColor;
+          counterTextColor = colorSet.backgroundColor;
+        } else {
+          counterBackgroundColor = context.state.counterCreateFields.backgroundColor;
+          counterTextColor = context.state.counterCreateFields.textColor;
+        }
 
         const data: Record<string, unknown> = {
           name: context.state.counterCreateFields.itemName,
-          backgroundColor: color.backgroundColor,
-          textColor: color.textColor,
+          backgroundColor: counterBackgroundColor,
+          textColor: counterTextColor,
           count: 0,
         };
 
@@ -251,6 +264,8 @@ export default new Vuex.Store({
         firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
           .update({
             name: context.state.counterCreateFields.itemName,
+            backgroundColor: context.state.counterCreateFields.backgroundColor,
+            textColor: context.state.counterCreateFields.textColor,
           }).then(() => {
             context.commit('SET_IS_COUNTER_DIALOG_OPEN', false);
             context.dispatch('counterFieldsClear').then();
@@ -282,6 +297,7 @@ export default new Vuex.Store({
       context.commit('SET_COUNTER_CREATE_FIELDS_KEY', '');
       context.commit('SET_COUNTER_CREATE_FIELDS_ITEM_NAME', '');
       context.commit('SET_COUNTER_CREATE_FIELDS_BACK_GROUND_COLOR', '');
+      context.commit('SET_COUNTER_CREATE_FIELDS_TEXT_COLOR', '');
       context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', true);
     },
     /* eslint-disable no-param-reassign */
