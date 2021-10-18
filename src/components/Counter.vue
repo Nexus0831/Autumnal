@@ -108,7 +108,7 @@ export default class counter extends Vue {
   /*-- layout --*/
   display grid
   grid-template-rows 10% 15% 45% 30%
-  grid-template-columns 2% 96% 2%
+  grid-template-columns 3% 94% 3%
   /*-- end --*/
 
   .counter-name-container
@@ -125,19 +125,29 @@ export default class counter extends Vue {
   .counter-name
     /*-- style --*/
     font-weight bold
-    font-size 1.5vw
     overflow hidden
     white-space nowrap
     text-overflow ellipsis
     width 100%
     text-align center
-    /*-webkit-text-stroke 0.5px #FFFFFF*/
+
+    @media (max-width 619px)
+      font-size 14px
+    @media (min-width 619px)
+      font-size 16px
+    @media (min-width 1024px)
+      font-size 18px
     /*-- end */
 
   .counter-count
     /*-- style --*/
     font-weight 500
-    font-size 3em
+    @media (max-width 619px)
+      font-size 36px
+    @media (min-width 619px)
+      font-size 42px
+    @media (min-width 1024px)
+      font-size 48px
     /*-- end */
 
     /*-- layout --*/
