@@ -4,8 +4,10 @@
     v-bind:style="{ backgroundColor: backgroundColor, color: textColor }"
     @click="addAction"
   >
-    <div class="counter-name">
-      {{ name }}
+    <div class="counter-name-container">
+      <span class="counter-name">
+        {{ name }}
+      </span>
     </div>
     <span class="counter-count">
       {{ count }}
@@ -106,16 +108,10 @@ export default class counter extends Vue {
   /*-- layout --*/
   display grid
   grid-template-rows 10% 15% 45% 30%
-  grid-template-columns 5px 1fr 5px
+  grid-template-columns 2% 96% 2%
   /*-- end --*/
 
-  .counter-name
-    /*-- style --*/
-    font-weight bold
-    font-size 1.5vw
-    /*-webkit-text-stroke 0.5px #FFFFFF*/
-    /*-- end */
-
+  .counter-name-container
     /*-- layout --*/
     display inline-flex
     align-items center
@@ -123,7 +119,20 @@ export default class counter extends Vue {
     justify-content center
     grid-row 2 / 3
     grid-column 2 / 3
+    max-width 100%
     /*-- end --*/
+
+  .counter-name
+    /*-- style --*/
+    font-weight bold
+    font-size 1.5vw
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
+    width 100%
+    text-align center
+    /*-webkit-text-stroke 0.5px #FFFFFF*/
+    /*-- end */
 
   .counter-count
     /*-- style --*/
