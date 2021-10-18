@@ -15,7 +15,7 @@
         icon="delete"
         style="color: #B00020"
         rippleColor="rgba(176, 0, 32, 0.5)"
-        hoverColor="rgba(176, 0, 32, 0.2)"
+        hoverColor="#e33353"
         @click-action="alertOpen"
       />
       <MaterialIcon

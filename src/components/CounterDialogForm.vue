@@ -7,16 +7,6 @@
       <div class="dialog-form-title error" v-if="!validate">
         ItemNameが空です
       </div>
-<!--      <template v-for="field in fields">-->
-<!--        <div class="dialog-form-input" :key="field.label">-->
-<!--          <MaterialInput-->
-<!--            :idName="field.label"-->
-<!--            :labelText="field.label"-->
-<!--            :value="field.value"-->
-<!--            @change-action="field.changeAction"-->
-<!--          />-->
-<!--        </div>-->
-<!--      </template>-->
       <div class="dialog-form-input">
         <MaterialInput
           idName="ItemName"
@@ -45,7 +35,11 @@
           <template v-for="color in colorList">
             <div class="color-box" :key="color.backgroundColor">
               <div
-                class="color-contents"
+                :class="[
+                  selectedColors.includes(color.backgroundColor)
+                  ?
+                  'color-selected-contents' : 'color-contents'
+                ]"
                 v-bind:style="{ backgroundColor: color.backgroundColor, color: color.textColor}"
                 @click="colorClickAction(color.backgroundColor, color.textColor)"
               >
@@ -78,6 +72,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import MaterialInput from '@/components/MaterialInput.vue';
 import Button from '@/components/Button.vue';
+import { Counter } from '@/interface/interface';
 import colors from '@/assets/colors';
 import { mapState } from 'vuex';
 
@@ -89,22 +84,26 @@ import { mapState } from 'vuex';
     computed: {
       ...mapState([
         'counterCreateFields',
+        'group',
       ]),
     },
   })
 export default class CounterDialogForm extends Vue {
-    @Prop() private formTitle!: string;
-
     @Prop() private validMessage!: string;
-
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    // @Prop() private fields!: Array<object>;
 
     @Prop() private textValue!: string;
 
     @Prop() private validate!: boolean;
 
     colorList = colors;
+
+    selectedColors: string[] = [];
+
+    created() {
+      this.$store.state.group.counters.forEach((e: Counter) => {
+        this.selectedColors.push(e.backgroundColor);
+      });
+    }
 
     itemNameChangeAction(itemName: string) {
       this.$store.commit('SET_COUNTER_CREATE_FIELDS_ITEM_NAME', itemName);
@@ -214,6 +213,15 @@ export default class CounterDialogForm extends Vue {
       right 0
       position absolute
       width 100%
+
+    .color-selected-contents
+      top 0
+      bottom 0
+      left 0
+      right 0
+      position absolute
+      width 100%
+      visibility hidden
 
     .button-container
       /*--- style ---*/

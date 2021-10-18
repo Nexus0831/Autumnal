@@ -49,15 +49,6 @@
       />
     </div>
     <transition name="fade">
-<!--      <CounterDialogForm-->
-<!--        v-if="isCounterDialogOpen"-->
-<!--        formTitle="Counter"-->
-<!--        validMessage="ItemNameが空です"-->
-<!--        :validate="counterCreateFields.validate"-->
-<!--        :fields="fields"-->
-<!--        @submit-action="submitAction"-->
-<!--        @dialog-close="dialogClose"-->
-<!--      />-->
       <CounterDialogForm
         v-if="isCounterDialogOpen"
         :validate="counterCreateFields.validate"
