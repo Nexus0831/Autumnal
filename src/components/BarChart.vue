@@ -70,10 +70,15 @@ export default class DoughnutChart extends Vue {
 
     chartOption: ChartOptions = {
       responsive: true,
+      animation: {
+        duration: 0,
+      },
+      hover: {
+        animationDuration: 0,
+      },
+      responsiveAnimationDuration: 0,
       legend: {
-        labels: {
-          fontColor: 'rgb(255, 255, 255)',
-        },
+        display: false,
       },
       scales: {
         yAxes: [{
@@ -100,7 +105,6 @@ export default class DoughnutChart extends Vue {
 <style lang="stylus" scoped>
   #bar-chart
     width 100%
-    height 100%
     color #FFFFFF
     display flex
     align-items center

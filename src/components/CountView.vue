@@ -214,8 +214,12 @@ export default class CountView extends Vue {
 
   .graph-area
     display grid
-    grid-template-rows 12px 1fr 12px
-    grid-template-columns 12px 1fr 12px 1fr 12px
+    @media (max-width 619px)
+      grid-template-rows 8px 1fr 8px 1fr 8px
+      grid-template-columns 2% 96% 2%
+    @media (min-width 619px)
+      grid-template-rows 12px 1fr 12px
+      grid-template-columns 2% 47% 2% 47% 2%
 
     grid-row 5 / 6
 
@@ -224,8 +228,12 @@ export default class CountView extends Vue {
       grid-column 2 / 3
 
     .bar-chart
-      grid-row 2 / 3
-      grid-column 4 / 5
+      @media (max-width 619px)
+        grid-row 4 / 5
+        grid-column 2 / 3
+      @media (min-width 619px)
+        grid-row 2 / 3
+        grid-column 4 / 5
 
   .card-texture
     background-color #424242

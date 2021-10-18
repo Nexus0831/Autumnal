@@ -80,7 +80,15 @@ export default class DoughnutChart extends Vue {
 
   chartOption: ChartOptions = {
     responsive: true,
+    animation: {
+      duration: 0,
+    },
+    hover: {
+      animationDuration: 0,
+    },
+    responsiveAnimationDuration: 0,
     legend: {
+      display: false,
       labels: {
         fontColor: 'white',
       },
@@ -93,11 +101,11 @@ export default class DoughnutChart extends Vue {
 <style lang="stylus" scoped>
   #doughnut-chart
     width 100%
-    height 100%
     color #FFFFFF
     display flex
     align-items center
     justify-content center
+    position relative
     /*z-index 999*/
     /*background-color #FFFFFF*/
 
@@ -116,9 +124,9 @@ export default class DoughnutChart extends Vue {
 
       .total-title
         font-weight 500
-        font-size 48px
+        font-size 3.5vw
 
       .total-count
         font-weight 500
-        font-size 64px
+        font-size 5vw
 </style>
