@@ -235,7 +235,7 @@ export default new Vuex.Store({
 
           const colorSet = colorList[(Math.floor(Math.random() * colorList.length))];
           counterBackgroundColor = colorSet.backgroundColor;
-          counterTextColor = colorSet.backgroundColor;
+          counterTextColor = colorSet.textColor;
         } else {
           counterBackgroundColor = context.state.counterCreateFields.backgroundColor;
           counterTextColor = context.state.counterCreateFields.textColor;

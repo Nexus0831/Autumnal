@@ -2,6 +2,7 @@
   <div
     class="counter"
     v-bind:style="{ backgroundColor: backgroundColor, color: textColor }"
+    @click.stop="(event) => rippleEvent(event, textColor)"
     @click="addAction"
   >
     <div class="counter-name-container">
@@ -44,9 +45,15 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import MaterialIcon from '@/components/MaterialIcon.vue';
+import rippleEffect from '@/functions/ripple';
 
 @Component({
   components: { MaterialIcon },
+  methods: {
+    rippleEvent: (event, color) => {
+      rippleEffect(event, color);
+    },
+  },
 })
 export default class counter extends Vue {
   @Prop() private name!: string;
@@ -94,6 +101,7 @@ export default class counter extends Vue {
   width 100%
   border-radius 5px
   outline none
+  overflow hidden
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14),
     0px 2px 1px -1px rgba(0, 0, 0, 0.12)
