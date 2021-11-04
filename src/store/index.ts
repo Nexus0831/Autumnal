@@ -347,17 +347,34 @@ export default new Vuex.Store({
           });
       }
     },
-    oneLessCount: (context, keys) => {
+    oneLessCount: async (context, keys) => {
+      context.commit('SET_IS_PROCESSING', true);
       const counter: Counter = context.state.group.counters
         .filter((e: any) => e.key === keys.counterKey)[0];
       if (counter.count > 0) {
-        firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
+        await firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
           .update({
             count: counter.count - 1,
           }).then(() => {
             context.dispatch('groupRead', keys.groupKey).then();
           });
       }
+      // 対象のレコードを検索
+      const nowDate = new Date().toLocaleDateString('ja-JP');
+      const record: CountRecord = context.state.group.records
+        .filter((e: any) => e.counterKey === keys.counterKey && e.date === nowDate)[0];
+      // レコードが存在するか検索
+      // TODO: マイナス時に0になったらレコードを削除する。
+      if (record !== undefined && record.count > 0) {
+        await firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/records/${record.key}`)
+          .update({
+            count: record.count - 1,
+          }).then(() => {
+            console.log(record.count - 1);
+            context.dispatch('groupRead', keys.groupKey).then();
+          });
+      }
+      context.commit('SET_IS_PROCESSING', false);
     },
     /* eslint-enable no-param-reassign */
     signIn: (context, router) => {
