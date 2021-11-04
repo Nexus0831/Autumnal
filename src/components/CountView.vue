@@ -48,7 +48,10 @@
       <BarChart
         class="bar-chart"
       />
-      <div class="record-table">table</div>
+      <RecordTable
+        class="record-table"
+        :records="group.records"
+      />
     </div>
     <transition name="fade">
       <CounterDialogForm
@@ -73,9 +76,11 @@ import Alert from '@/components/Alert.vue';
 import DoughnutChart from '@/components/DoughnutChart.vue';
 import BarChart from '@/components/BarChart.vue';
 import CounterDialogForm from '@/components/CounterDialogForm.vue';
+import RecordTable from '@/components/RecordTable.vue';
 
 @Component({
   components: {
+    RecordTable,
     CounterDialogForm,
     BarChart,
     DoughnutChart,
@@ -221,8 +226,6 @@ export default class CountView extends Vue {
         grid-column 4 / 5
 
     .record-table
-      background-color #e91e63
-      width 100%;
       @media (max-width 619px)
         grid-row 6 / 7
         grid-column 2 / 3
