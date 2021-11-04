@@ -281,11 +281,16 @@ export default new Vuex.Store({
         context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', false);
       }
     },
-    counterDelete: (context, keys) => {
-      firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
-        .remove().then(() => {
-          context.dispatch('groupRead', keys.groupKey).then();
-        });
+    counterDelete: async (context, keys) => {
+      const records: CountRecord[] = context.state.group.records
+        .filter((r: any) => r.counterKey === keys.counterKey);
+      await firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
+        .remove().then();
+      await records.forEach((record: CountRecord) => {
+        firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/records/${record.key}`)
+          .remove().then();
+      });
+      context.dispatch('groupRead', keys.groupKey).then();
     },
     /* eslint-enable no-param-reassign */
     counterSubmit: (context, key) => {
@@ -312,13 +317,16 @@ export default new Vuex.Store({
       await firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
         .update({
           count: counter.count + 1,
-        }).then();
+        }).then(() => {
+          context.dispatch('groupRead', keys.groupKey).then();
+        });
 
       // 対象のレコードを検索
+      // レコードが存在するか検索
       const nowDate = new Date().toLocaleDateString('ja-JP');
       const record: CountRecord = context.state.group.records
         .filter((e: any) => e.counterKey === keys.counterKey && e.date === nowDate)[0];
-      // レコードが存在するか検索
+      // console.log(record);
       if (record === undefined) {
         const data: Record<string, unknown> = {
           date: nowDate,
@@ -340,7 +348,6 @@ export default new Vuex.Store({
           .update({
             count: record.count + 1,
           }).then(() => {
-            console.log(record.count + 1);
             context.dispatch('groupRead', keys.groupKey).then(() => {
               context.commit('SET_IS_PROCESSING', false);
             });
@@ -370,7 +377,6 @@ export default new Vuex.Store({
           .update({
             count: record.count - 1,
           }).then(() => {
-            console.log(record.count - 1);
             context.dispatch('groupRead', keys.groupKey).then();
           });
       }
