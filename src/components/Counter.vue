@@ -46,9 +46,15 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import MaterialIcon from '@/components/MaterialIcon.vue';
 import rippleEffect from '@/functions/ripple';
+import { mapState } from 'vuex';
 
 @Component({
   components: { MaterialIcon },
+  computed: {
+    ...mapState([
+      'isProcessing',
+    ]),
+  },
   methods: {
     rippleEvent: (event, color) => {
       rippleEffect(event, color);
@@ -115,7 +121,7 @@ export default class counter extends Vue {
 
   /*-- layout --*/
   display grid
-  grid-template-rows 10% 15% 45% 30%
+  grid-template-rows 5% 20% 45% 30%
   grid-template-columns 3% 94% 3%
   /*-- end --*/
 

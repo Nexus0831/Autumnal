@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import colors from '@/assets/colors';
-import { Group, Counter } from '@/interface/interface';
+import { Group, Counter, CountRecord } from '@/interface/interface';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
@@ -17,6 +17,7 @@ export default new Vuex.Store({
       detail: '',
       lastUpdate: '',
       counters: [],
+      records: [],
     },
     isDialogOpen: false,
     isCounterDialogOpen: false,
@@ -40,6 +41,7 @@ export default new Vuex.Store({
       uid: '',
     },
     isSignIn: false,
+    isProcessing: false,
   },
   getters: {
     getGroup: (state) => (key: string) => state.groups.filter((e: any) => e.key === key)[0],
@@ -107,6 +109,9 @@ export default new Vuex.Store({
     SET_IS_SIGN_IN: (state, isSignIn) => {
       state.isSignIn = isSignIn;
     },
+    SET_IS_PROCESSING: (state, isProcessing) => {
+      state.isProcessing = isProcessing;
+    },
   },
   actions: {
     // count画面にURLに直接アクセスした際にもデータを表示できるようにする
@@ -115,6 +120,7 @@ export default new Vuex.Store({
         firebase.database().ref(`/users/${context.state.user.uid}/groups/${key}`)
           .once('value').then((snapshot) => {
             const counters:Record<string, unknown>[] = [];
+            const records:Record<string, unknown>[] = [];
 
             if (typeof snapshot.val().counters !== 'undefined') {
               const cos = Object.entries(snapshot.val().counters)
@@ -124,12 +130,23 @@ export default new Vuex.Store({
                 counters.push({ key: counter.key, ...counter.value });
               });
             }
+
+            if (typeof snapshot.val().records !== 'undefined') {
+              const rec = Object.entries(snapshot.val().records)
+                .map(([id, value]) => ({ key: id, value }));
+
+              rec.forEach((record: any) => {
+                records.push({ key: record.key, ...record.value });
+              });
+            }
+
             const group = {
               key: snapshot.key,
               groupName: snapshot.val().groupName,
               detail: snapshot.val().detail,
               lastUpdate: snapshot.val().lastUpdate,
               counters,
+              records,
             };
             context.commit('SET_GROUP', group);
           });
@@ -141,22 +158,11 @@ export default new Vuex.Store({
           const groups: Record<string, unknown>[] = [];
 
           snapshot.forEach((item: any) => {
-            const counters:Record<string, unknown>[] = [];
-            if (typeof item.val().counters !== 'undefined') {
-              const cos = Object.entries(item.val().counters)
-                .map(([key, value]) => ({ key, value }));
-
-              cos.forEach((counter: any) => {
-                counters.push({ key: counter.key, ...counter.value });
-              });
-            }
-
             groups.push({
               key: item.key,
               groupName: item.val().groupName,
               detail: item.val().detail,
               lastUpdate: item.val().lastUpdate,
-              counters,
             });
           });
 
@@ -276,9 +282,6 @@ export default new Vuex.Store({
       }
     },
     counterDelete: (context, keys) => {
-      // context.state.groups.filter((e) => e.key === keys.groupKey)[0]
-      //   .counters = context.state.groups.filter((e) => e.key === keys.groupKey)[0]
-      //     .counters.filter((e) => e.key !== keys.counterKey);
       firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
         .remove().then(() => {
           context.dispatch('groupRead', keys.groupKey).then();
@@ -289,7 +292,6 @@ export default new Vuex.Store({
       if (context.state.counterCreateFields.key === '') {
         context.dispatch('counterCreate', key).then();
       } else {
-        // console.log('update');
         context.dispatch('counterUpdate', { groupKey: key, counterKey: context.state.counterCreateFields.key }).then();
       }
     },
@@ -301,21 +303,51 @@ export default new Vuex.Store({
       context.commit('SET_COUNTER_CREATE_FIELDS_VALIDATE', true);
     },
     /* eslint-disable no-param-reassign */
-    addOnceCount: (context, keys) => {
-      // context.state.groups.filter((e) => e.key === keys.groupKey)[0]
-      //   .counters.filter((e) => e.key === keys.counterKey)[0].count += 1;
+    addOnceCount: async (context, keys) => {
+      // 対象のカウントを検索
+      context.commit('SET_IS_PROCESSING', true);
       const counter: Counter = context.state.group.counters
         .filter((e: any) => e.key === keys.counterKey)[0];
-      firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
+      // データベースのカウンターのカウントを更新
+      await firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
         .update({
           count: counter.count + 1,
-        }).then(() => {
-          context.dispatch('groupRead', keys.groupKey).then();
-        });
+        }).then();
+
+      // 対象のレコードを検索
+      const nowDate = new Date().toLocaleDateString('ja-JP');
+      const record: CountRecord = context.state.group.records
+        .filter((e: any) => e.counterKey === keys.counterKey && e.date === nowDate)[0];
+      // レコードが存在するか検索
+      if (record === undefined) {
+        const data: Record<string, unknown> = {
+          date: nowDate,
+          counterKey: counter.key,
+          count: 1,
+        };
+        // ない場合は作成
+        await firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/records`)
+          .push().update(data)
+          .then(() => {
+            context.dispatch('groupRead', keys.groupKey).then(() => {
+              context.commit('SET_IS_PROCESSING', false);
+            });
+          });
+      } else {
+        // ある場合は更新
+        // console.log(record);
+        await firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/records/${record.key}`)
+          .update({
+            count: record.count + 1,
+          }).then(() => {
+            console.log(record.count + 1);
+            context.dispatch('groupRead', keys.groupKey).then(() => {
+              context.commit('SET_IS_PROCESSING', false);
+            });
+          });
+      }
     },
     oneLessCount: (context, keys) => {
-      // context.state.groups.filter((e) => e.key === keys.groupKey)[0]
-      //   .counters.filter((e) => e.key === keys.counterKey)[0].count -= 1;
       const counter: Counter = context.state.group.counters
         .filter((e: any) => e.key === keys.counterKey)[0];
       if (counter.count > 0) {

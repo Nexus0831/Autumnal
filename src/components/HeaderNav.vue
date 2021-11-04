@@ -6,7 +6,7 @@
     </div>
     <div v-if="isSignIn" class="right-container">
       <div class="display-name">
-        {{ user.email }}
+        {{ user.displayName }}
       </div>
     </div>
     <div v-else class="right-container">

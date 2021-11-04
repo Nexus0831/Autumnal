@@ -26,6 +26,7 @@
               :text-color="counter.textColor"
               :count="counter.count"
               @update-action="dialogEditOpen"
+              :style="{ pointerEvents: isProcessing ? 'none' : 'auto' }"
             />
           </div>
           <transition name="alert" :key="counter.key">
@@ -88,6 +89,7 @@ import CounterDialogForm from '@/components/CounterDialogForm.vue';
       'isCounterDialogOpen',
       'counterCreateFields',
       'counterAlertId',
+      'isProcessing',
     ]),
   },
   methods: {
@@ -163,7 +165,7 @@ export default class CountView extends Vue {
   /*@media (min-width 1024px)*/
   /*  grid-template-columns 1fr 12px 30%*/
 
-  grid-template-rows 48px 12px 1fr 12px
+  grid-template-rows 28px 12px 1fr 12px
 
   .group-name-area
     display flex
@@ -171,7 +173,7 @@ export default class CountView extends Vue {
     justify-content center
     color #FFFFFF
     font-weight 500
-    font-size 36px
+    font-size 28px
     /*transition all 0.3s*/
     grid-row 1 / 2
 

@@ -13,3 +13,10 @@ export interface Group {
   lastUpdate: string,
   counters: Counter[],
 }
+
+export interface CountRecord {
+  key: string,
+  Date: string,
+  counterKey: string,
+  count: number,
+}
