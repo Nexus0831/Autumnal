@@ -137,7 +137,7 @@ export default class Card extends Vue {
     overflow hidden
     text-overflow ellipsis
     user-select none
-    white-space nowrap
+    overflow-wrap break-word
     z-index 10
     /*--- end ---*/
 

@@ -48,6 +48,7 @@
       <BarChart
         class="bar-chart"
       />
+      <div class="record-table">table</div>
     </div>
     <transition name="fade">
       <CounterDialogForm
@@ -155,15 +156,6 @@ export default class CountView extends Vue {
 <style scoped lang="stylus">
 #count
   display grid
-  /*height 100%*/
-  /*grid-template-columns 1fr 12px 30%*/
-
-  /*@media (max-width 619px)*/
-  /*  grid-template-rows 1fr 12px 480px*/
-  /*@media (min-width 619px)*/
-  /*  grid-template-rows 1fr 12px 240px*/
-  /*@media (min-width 1024px)*/
-  /*  grid-template-columns 1fr 12px 30%*/
 
   grid-template-rows 28px 12px 1fr 12px
 
@@ -174,12 +166,7 @@ export default class CountView extends Vue {
     color #FFFFFF
     font-weight 500
     font-size 28px
-    /*transition all 0.3s*/
     grid-row 1 / 2
-
-    /*&:hover*/
-    /*  cursor pointer*/
-    /*  color #e91e63*/
 
   .counter-area
     display grid
@@ -189,15 +176,9 @@ export default class CountView extends Vue {
 
     .counter-container
       display grid
-      /*flex-wrap wrap*/
       grid-row 2 / 3
       grid-column 2 / 3
       width 100%
-      /*grid-template-columns: repeat(auto-fill, minmax(128px, 128px));*/
-      /*grid-template-rows: repeat(auto-fill, minmax(112px, 112px));*/
-      /* flex-wrap wrap*/
-      /*gap 1%*/
-      /*grid-row-gap 2%*/
 
       /* TODO: ここでカウンターの要素数を変更 */
       @media (max-width 619px)
@@ -219,10 +200,10 @@ export default class CountView extends Vue {
   .graph-area
     display grid
     @media (max-width 619px)
-      grid-template-rows 8px 1fr 8px 1fr 8px
+      grid-template-rows 8px 1fr 8px 1fr 8px 1fr 8px
       grid-template-columns 2% 96% 2%
     @media (min-width 619px)
-      grid-template-rows 12px 1fr 12px
+      grid-template-rows 12px 1fr 12px 1fr 12px
       grid-template-columns 2% 47% 2% 47% 2%
 
     grid-row 5 / 6
@@ -238,6 +219,16 @@ export default class CountView extends Vue {
       @media (min-width 619px)
         grid-row 2 / 3
         grid-column 4 / 5
+
+    .record-table
+      background-color #e91e63
+      width 100%;
+      @media (max-width 619px)
+        grid-row 6 / 7
+        grid-column 2 / 3
+      @media (min-width 619px)
+        grid-row 4 / 5
+        grid-column 2 / 5
 
   .card-texture
     background-color #424242
