@@ -72,10 +72,8 @@ export default class RecordTable extends Vue {
       letter-spacing 0.01071em
       display table-cell
       vertical-align inherit
-      border-bottom 1px solid rgb(81, 81, 81)
       text-align left
-      padding 16px
-      /*background-color #303030*/
+      padding 6px 16px
     .record-th-right
       font-weight 500
       font-size 0.875rem
@@ -83,8 +81,7 @@ export default class RecordTable extends Vue {
       letter-spacing 0.01071em
       display table-cell
       vertical-align inherit
-      border-bottom 1px solid rgb(81, 81, 81)
       text-align right
-      padding 16px
+      padding 6px 16px
       flex-direction: row-reverse;
 </style>

@@ -32,7 +32,7 @@
           <transition name="alert" :key="counter.key">
             <Alert
               :title="`カウンター「${counter.name}」を削除しますか？`"
-              :message="`カウンターは一度削除すると復元はできません`"
+              :message="`カウンターを削除すると対応したレコードも削除され一度削除すると復元はできません`"
               v-if="counterAlertId === counter.key"
               @alert-action="deleteAction(counter.key)"
               @alert-close="alertClose"
@@ -128,9 +128,6 @@ export default class CountView extends Vue {
   }
 
   dialogOpen() {
-    // this.fields.forEach((e) => {
-    //   e.value = '';
-    // });
     this.textValue = '';
     this.$store.commit('SET_IS_COUNTER_DIALOG_OPEN', true);
   }
