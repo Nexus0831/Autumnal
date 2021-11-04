@@ -57,7 +57,7 @@ export default class RecordTable extends Vue {
     width 100%
     border-collapse collapse
     border-spacing 0
-    min-width 650px
+    /*min-width 650px*/
     .record-thead
       display table-header-group
     .record-tr

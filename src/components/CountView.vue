@@ -205,10 +205,10 @@ export default class CountView extends Vue {
   .graph-area
     display grid
     @media (max-width 619px)
-      grid-template-rows 8px 1fr 8px 1fr 8px 1fr 8px
+      grid-template-rows 8px 1fr 8px 1fr 8px auto 8px
       grid-template-columns 2% 96% 2%
     @media (min-width 619px)
-      grid-template-rows 12px 1fr 12px 1fr 12px
+      grid-template-rows 12px 1fr 12px auto 12px
       grid-template-columns 2% 47% 2% 47% 2%
 
     grid-row 5 / 6
