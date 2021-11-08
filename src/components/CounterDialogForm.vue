@@ -167,12 +167,12 @@ export default class CounterDialogForm extends Vue {
       margin 0
       padding 24px 24px 20px
       text-align center
-    /*--- end ---*/
+      /*--- end ---*/
 
     .error
       /*--- style ---*/
       color #B00020
-    /*--- end ---*/
+      /*--- end ---*/
 
     .dialog-form-input
       /*--- style ---*/
@@ -183,7 +183,6 @@ export default class CounterDialogForm extends Vue {
       width 100%
 
     .color-value-text
-      /*color rgba(255, 255, 255, 0.7)*/
       font-size 1rem
       line-height 1
       padding 0 24px 12px
@@ -192,7 +191,6 @@ export default class CounterDialogForm extends Vue {
       padding 0 24px 24px
       display grid
       grid-auto-flow column
-      /*grid-template-columns: repeat(auto-fill, @width / 12);*/
       grid-template-rows: repeat(12, 1fr);
       grid-template-columns: repeat(17, 1fr);
 
@@ -232,5 +230,5 @@ export default class CounterDialogForm extends Vue {
       display flex
       align-items center
       justify-content flex-end
-  /*--- end ---*/
+      /*--- end ---*/
 </style>

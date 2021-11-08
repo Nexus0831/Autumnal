@@ -31,12 +31,10 @@ export default class Button extends Vue {
 
   private backgroundColor = 'transparent';
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   hoverIn() {
     this.backgroundColor = this.hoverColor;
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   hoverOut() {
     this.backgroundColor = 'transparent';
   }

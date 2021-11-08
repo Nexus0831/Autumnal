@@ -52,7 +52,7 @@ export default class DoughnutChart extends Vue {
       this.names.push(e.name);
       this.total += e.count;
     });
-    // this.chartDate.labels = this.names;
+
     this.chartDate = {
       labels: this.names,
       datasets: [
@@ -62,7 +62,6 @@ export default class DoughnutChart extends Vue {
           data: this.data,
           backgroundColor: this.colors,
           borderColor: 'rgba(0, 0, 0, 0)',
-          // hoverOffset: 4,
         },
       ],
     };
@@ -106,8 +105,6 @@ export default class DoughnutChart extends Vue {
     align-items center
     justify-content center
     position relative
-    /*z-index 999*/
-    /*background-color #FFFFFF*/
 
     .chart-component
       width 100%

@@ -59,7 +59,6 @@ export default class CreateCounterButton extends Vue {
   right 0
   position absolute
   width 100%
-  /*height 100%*/
   padding 0
   border 0
   cursor pointer
@@ -82,7 +81,6 @@ export default class CreateCounterButton extends Vue {
   border-radius 5px
   letter-spacing 0.02857em
   text-transform uppercase
-  /*z-index 50*/
   /*--- end ---*/
 
   /*--- layout ---*/
@@ -91,12 +89,6 @@ export default class CreateCounterButton extends Vue {
   vertical-align middle
   justify-content center
   /*--- end *---*/
-
-  /*--- position ---
-  position fixed
-  bottom 30px
-  right 5px
-  --- end ---*/
 
   .icon-container
     width 100%

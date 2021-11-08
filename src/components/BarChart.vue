@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import {
-  Component, Vue, Prop, Watch,
+  Component, Vue,
 } from 'vue-property-decorator';
 import { ChartData, ChartOptions } from 'chart.js';
 import { Counter } from '@/interface/interface';
@@ -40,7 +40,7 @@ export default class DoughnutChart extends Vue {
         this.colors.push(e.backgroundColor);
         this.names.push(e.name);
       });
-      // this.chartDate.labels = this.names;
+
       this.chartDate = {
         labels: this.names,
         datasets: [
@@ -52,7 +52,6 @@ export default class DoughnutChart extends Vue {
             borderColor: this.colors,
             borderWidth: 2,
             barPercentage: 0.5,
-            // hoverOffset: 4,
           },
         ],
       };
@@ -109,8 +108,6 @@ export default class DoughnutChart extends Vue {
     display flex
     align-items center
     justify-content center
-    /*z-index 999*/
-    /*background-color #FFFFFF*/
 
     .bar-component
       width 100%

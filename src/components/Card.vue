@@ -85,7 +85,6 @@ export default class Card extends Vue {
     display grid
     grid-template-rows 16px 32px 4px 24px 4px 1fr 12px 32px 8px
     grid-template-columns 16px 1fr 16px
-    /*position absolute*/
     /*--- end ---*/
 
     &:hover
@@ -109,8 +108,6 @@ export default class Card extends Vue {
     /*--- end ---*/
 
     /*--- layout ---*/
-    /*display flex*/
-    /*align-items center*/
     padding-top 3px
     /*--- end ---*/
 

@@ -1,6 +1,5 @@
 <template>
   <div id="count">
-<!--    test{{ this.$route.params.key }}-->
     <div class="group-name-area">
       {{ group.groupName }}
     </div>
@@ -70,7 +69,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapActions, mapState } from 'vuex';
 import CreateCounterButton from '@/components/CreateCounterButton.vue';
 import Counter from '@/components/Counter.vue';
-// eslint-disable-next-line import/named
 import { Counter as counter } from '@/interface/interface';
 import Alert from '@/components/Alert.vue';
 import DoughnutChart from '@/components/DoughnutChart.vue';
@@ -108,7 +106,6 @@ export default class CountView extends Vue {
   textValue = '';
 
   mounted() {
-    // groupを読み込み
     this.$store.dispatch('groupRead', this.$route.params.key);
 
     this.$store.watch(

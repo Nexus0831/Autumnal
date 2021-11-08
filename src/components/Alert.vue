@@ -35,7 +35,6 @@ export default class Alert extends Vue {
   @Prop() private message!: string;
 
   closeAlert() {
-    // this.$store.commit('SET_ALERT_ID', '');
     this.$emit('alert-close', '');
   }
 
