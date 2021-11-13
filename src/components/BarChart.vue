@@ -36,9 +36,11 @@ export default class DoughnutChart extends Vue {
 
     dataIsSet() {
       this.$store.state.group.counters.forEach((e: Counter) => {
-        this.data.push(e.count);
-        this.colors.push(e.backgroundColor);
-        this.names.push(e.name);
+        if (e.isGraphic) {
+          this.data.push(e.count);
+          this.colors.push(e.backgroundColor);
+          this.names.push(e.name);
+        }
       });
 
       this.chartDate = {

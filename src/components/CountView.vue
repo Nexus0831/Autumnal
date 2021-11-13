@@ -24,6 +24,7 @@
               :background-color="counter.backgroundColor"
               :text-color="counter.textColor"
               :count="counter.count"
+              :is-graphic="counter.isGraphic"
               @update-action="dialogEditOpen"
               :style="{ pointerEvents: isProcessing ? 'none' : 'auto' }"
             />

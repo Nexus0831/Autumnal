@@ -252,6 +252,7 @@ export default new Vuex.Store({
           backgroundColor: counterBackgroundColor,
           textColor: counterTextColor,
           count: 0,
+          isGraphic: true,
         };
 
         firebase.database().ref(`/users/${context.state.user.uid}/groups/${key}/counters`).push().update(data)
@@ -343,7 +344,6 @@ export default new Vuex.Store({
           });
       } else {
         // ある場合は更新
-        // console.log(record);
         await firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/records/${record.key}`)
           .update({
             count: record.count + 1,
@@ -381,6 +381,22 @@ export default new Vuex.Store({
           });
       }
       context.commit('SET_IS_PROCESSING', false);
+    },
+    offGraphic: (context, keys) => {
+      firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
+        .update({
+          isGraphic: false,
+        }).then(() => {
+          context.dispatch('groupRead', keys.groupKey).then();
+        });
+    },
+    onGraphic: (context, keys) => {
+      firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/counters/${keys.counterKey}`)
+        .update({
+          isGraphic: true,
+        }).then(() => {
+          context.dispatch('groupRead', keys.groupKey).then();
+        });
     },
     /* eslint-enable no-param-reassign */
     signIn: (context, router) => {

@@ -16,6 +16,7 @@
     <div class="counter-icons">
       <MaterialIcon
         class="counter-icon"
+        title="カウントを-1"
         icon="remove"
         v-bind:style="{ color: textColor }"
         rippleColor="rgba(255, 255, 255, 0.5)"
@@ -24,14 +25,38 @@
       />
       <MaterialIcon
         class="counter-icon"
+        title="カウンター情報を編集"
         icon="edit"
         v-bind:style="{ color: textColor }"
         rippleColor="rgba(255, 255, 255, 0.5)"
         :hoverColor="[ textColor === '#ffffff' ? '#000000DE' : '#ffffff' ]"
         @click-action="editAction"
       />
+      <template v-if="isGraphic">
+        <MaterialIcon
+          class="counter-icon"
+          title="グラフの集計対象から外す(現在は集計対象)"
+          icon="visibility"
+          v-bind:style="{ color: textColor }"
+          rippleColor="rgba(255, 255, 255, 0.5)"
+          :hoverColor="[ textColor === '#ffffff' ? '#000000DE' : '#ffffff' ]"
+          @click-action="offGraphic"
+        />
+      </template>
+      <template v-else>
+        <MaterialIcon
+          class="counter-icon"
+          title="グラフの集計対象に加える(現在は集計外)"
+          icon="visibility_off"
+          v-bind:style="{ color: textColor }"
+          rippleColor="rgba(255, 255, 255, 0.5)"
+          :hoverColor="[ textColor === '#ffffff' ? '#000000DE' : '#ffffff' ]"
+          @click-action="onGraphic"
+        />
+      </template>
       <MaterialIcon
         class="counter-icon"
+        title="カウンターを削除"
         icon="delete"
         style="color: #b00020"
         rippleColor="rgba(176, 0, 32, 0.5)"
@@ -72,6 +97,8 @@ export default class counter extends Vue {
 
   @Prop() private count!: number;
 
+  @Prop() private isGraphic!: boolean;
+
   addAction() {
     this.$store.dispatch(
       'addOnceCount',
@@ -81,6 +108,20 @@ export default class counter extends Vue {
 
   editAction() {
     this.$emit('update-action', this.keyNumber);
+  }
+
+  offGraphic() {
+    this.$store.dispatch(
+      'offGraphic',
+      { groupKey: this.$route.params.key, counterKey: this.keyNumber },
+    );
+  }
+
+  onGraphic() {
+    this.$store.dispatch(
+      'onGraphic',
+      { groupKey: this.$route.params.key, counterKey: this.keyNumber },
+    );
   }
 
   alertOpen() {

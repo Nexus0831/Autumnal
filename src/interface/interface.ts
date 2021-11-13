@@ -4,6 +4,7 @@ export interface Counter {
   textColor: string,
   backgroundColor: string,
   count: number,
+  isGraphic: boolean,
 }
 
 export interface Group {
