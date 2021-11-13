@@ -20,7 +20,6 @@
         icon="remove"
         v-bind:style="{ color: textColor }"
         rippleColor="rgba(255, 255, 255, 0.5)"
-        :hoverColor="[ textColor === '#ffffff' ? '#000000DE' : '#ffffff' ]"
         @click-action="minusAction"
       />
       <MaterialIcon
@@ -29,7 +28,6 @@
         icon="edit"
         v-bind:style="{ color: textColor }"
         rippleColor="rgba(255, 255, 255, 0.5)"
-        :hoverColor="[ textColor === '#ffffff' ? '#000000DE' : '#ffffff' ]"
         @click-action="editAction"
       />
       <template v-if="isGraphic">
@@ -39,7 +37,6 @@
           icon="visibility"
           v-bind:style="{ color: textColor }"
           rippleColor="rgba(255, 255, 255, 0.5)"
-          :hoverColor="[ textColor === '#ffffff' ? '#000000DE' : '#ffffff' ]"
           @click-action="offGraphic"
         />
       </template>
@@ -50,7 +47,6 @@
           icon="visibility_off"
           v-bind:style="{ color: textColor }"
           rippleColor="rgba(255, 255, 255, 0.5)"
-          :hoverColor="[ textColor === '#ffffff' ? '#000000DE' : '#ffffff' ]"
           @click-action="onGraphic"
         />
       </template>
@@ -58,9 +54,8 @@
         class="counter-icon"
         title="カウンターを削除"
         icon="delete"
-        style="color: #b00020"
+        v-bind:style="{ color: textColor }"
         rippleColor="rgba(176, 0, 32, 0.5)"
-        hoverColor="#e33353"
         @click-action="alertOpen"
       />
     </div>

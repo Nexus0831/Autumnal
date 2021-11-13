@@ -4,8 +4,6 @@
       class="icon-graphy"
       @click.stop="(event) => clickEffect(event, rippleColor)"
       @click.capture.stop="$emit('click-action')"
-      @mouseover="hoverIn"
-      @mouseout="hoverOut"
       v-bind:style="{ color: color}"
     >
       <i class="material-icons">{{ icon }}</i>
@@ -34,14 +32,14 @@ export default class MaterialIcon extends Vue {
   private color = 'inherit';
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  hoverIn() {
-    this.color = this.hoverColor;
-  }
+  // hoverIn() {
+  //   this.color = this.hoverColor;
+  // }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  hoverOut() {
-    this.color = 'inherit';
-  }
+  // hoverOut() {
+  //   this.color = 'inherit';
+  // }
 }
 </script>
 
@@ -64,6 +62,7 @@ export default class MaterialIcon extends Vue {
   width 100%
   overflow hidden
   position relative
+  transition  all 0.2s
   /*--- end ---*/
 
   /*--- layout ---*/
@@ -74,4 +73,5 @@ export default class MaterialIcon extends Vue {
 
   &:hover
     cursor pointer
+    transform scale(1.5, 1.5)
 </style>
