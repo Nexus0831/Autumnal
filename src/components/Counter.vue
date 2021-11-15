@@ -20,6 +20,7 @@
         icon="remove"
         v-bind:style="{ color: textColor }"
         rippleColor="rgba(255, 255, 255, 0.5)"
+        :hover-color="[textColor === '#ffffff' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)']"
         @click-action="minusAction"
       />
       <MaterialIcon
@@ -28,6 +29,7 @@
         icon="edit"
         v-bind:style="{ color: textColor }"
         rippleColor="rgba(255, 255, 255, 0.5)"
+        :hover-color="[textColor === '#ffffff' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)']"
         @click-action="editAction"
       />
       <template v-if="isGraphic">
@@ -37,6 +39,7 @@
           icon="visibility"
           v-bind:style="{ color: textColor }"
           rippleColor="rgba(255, 255, 255, 0.5)"
+          :hover-color="[textColor === '#ffffff' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)']"
           @click-action="offGraphic"
         />
       </template>
@@ -47,6 +50,7 @@
           icon="visibility_off"
           v-bind:style="{ color: textColor }"
           rippleColor="rgba(255, 255, 255, 0.5)"
+          :hover-color="[textColor === '#ffffff' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)']"
           @click-action="onGraphic"
         />
       </template>
@@ -56,6 +60,7 @@
         icon="delete"
         v-bind:style="{ color: textColor }"
         rippleColor="rgba(176, 0, 32, 0.5)"
+        :hover-color="[textColor === '#ffffff' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)']"
         @click-action="alertOpen"
       />
     </div>
@@ -222,5 +227,6 @@ export default class counter extends Vue {
     /*-- end --*/
     .counter-icon
       @media (max-width 619px)
-        width 20% !important
+        /*width 15% !important*/
+        font-size 12px
 </style>

@@ -1,12 +1,15 @@
 <template>
-  <div id="icon">
+  <div id="icon" :style="{ backgroundColor: color }">
     <div
       class="icon-graphy"
       @click.stop="(event) => clickEffect(event, rippleColor)"
       @click.capture.stop="$emit('click-action')"
-      v-bind:style="{ color: color}"
+      @mouseover="hoverIn"
+      @mouseout="hoverOut"
     >
-      <i class="material-icons">{{ icon }}</i>
+      <i class="material-icons" :style="{ fontSize: size }">
+        {{ icon }}
+      </i>
     </div>
   </div>
 </template>
@@ -29,17 +32,19 @@ export default class MaterialIcon extends Vue {
 
   @Prop() private hoverColor!: string;
 
+  @Prop() private size!: string;
+
   private color = 'inherit';
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  // hoverIn() {
-  //   this.color = this.hoverColor;
-  // }
+  hoverIn() {
+    this.color = this.hoverColor;
+  }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  // hoverOut() {
-  //   this.color = 'inherit';
-  // }
+  hoverOut() {
+    this.color = 'inherit';
+  }
 }
 </script>
 
@@ -48,15 +53,14 @@ export default class MaterialIcon extends Vue {
 #icon
   user-select none
   border-radius 50%
-  height 40px
-  width 40px
+  padding 3px
+  transition all 0.3s
 
 .icon-graphy
   /*--- attr ---*/
   /*--- end ---*/
 
   /*--- style ---*/
-  transition all 0.3s
   border-radius 50%
   height 100%
   width 100%
@@ -72,5 +76,12 @@ export default class MaterialIcon extends Vue {
 
   &:hover
     cursor pointer
-    transform scale(1.5, 1.5)
+
+.material-icons
+  @media (max-width 619px)
+    font-size 16px
+  @media (min-width 619px)
+    font-size 20px
+  @media (min-width 1024px)
+    font-size 24px
 </style>

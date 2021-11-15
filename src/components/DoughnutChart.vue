@@ -18,12 +18,11 @@
 
 <script lang="ts">
 import {
-  Component, Vue, Prop, Watch,
+  Component, Vue,
 } from 'vue-property-decorator';
 import { ChartData, ChartOptions } from 'chart.js';
 import { Counter } from '@/interface/interface';
 import DoughnutChartComponent from '@/components/DoughnutChartComponent.vue';
-// import 'chartjs-plugin-datalabels';
 
 @Component({
   components: { DoughnutChartComponent },
@@ -96,25 +95,6 @@ export default class DoughnutChart extends Vue {
         fontSize: 16,
       },
     },
-    // plugins: {
-    // datalabels: {
-    //   display: false,
-    // formatter: (value: number, ctx: any) => {
-    //   let sum = 0;
-    //   const dataArr = ctx.chart.data.datasets[0].data;
-    //   // eslint-disable-next-line no-return-assign
-    //   dataArr.map((data: any) => sum += data);
-    //   // eslint-disable-next-line no-mixed-operators
-    //   const percentage = `${((value / sum) * 100).toFixed(1)}%`;
-    //   return percentage;
-    // },
-    // color: 'black',
-    // font: {
-    //   size: 14,
-    //   weight: 'bold',
-    // },
-    // },
-    // },
   }
 }
 

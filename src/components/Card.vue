@@ -13,10 +13,11 @@
     <div class="icon-container">
       <MaterialIcon
         icon="delete"
-        style="color: #B00020"
+        style="color: #B00020; margin-left: 8px"
         rippleColor="rgba(176, 0, 32, 0.5)"
-        hoverColor="#e33353"
+        hoverColor="rgba(227, 51, 83, 0.2)"
         @click-action="alertOpen"
+        size="24px"
       />
       <MaterialIcon
         icon="edit"
@@ -24,6 +25,7 @@
         rippleColor="rgba(255, 255, 255, 0.5)"
         hoverColor="rgba(255, 255, 255, 0.2)"
         @click-action="editAction"
+        size="24px"
       />
     </div>
   </div>
