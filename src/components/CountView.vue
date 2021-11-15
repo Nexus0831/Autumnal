@@ -175,7 +175,7 @@ export default class CountView extends Vue {
 
   .counter-area
     display grid
-    grid-template-rows 12px 1fr
+    grid-template-rows 12px 1fr 12px
     grid-template-columns 12px 1fr 12px
     grid-row 3 / 4
 
@@ -184,21 +184,23 @@ export default class CountView extends Vue {
       grid-row 2 / 3
       grid-column 2 / 3
       width 100%
+      grid-gap 5px
 
       /* TODO: ここでカウンターの要素数を変更 */
       @media (max-width 619px)
-        grid-template-columns: repeat(auto-fill, @width / 3);
+        grid-template-columns: repeat(auto-fill, minmax(@width / 4, 1fr));
       @media (min-width 619px)
-        grid-template-columns: repeat(auto-fill, @width / 5);
+        grid-template-columns: repeat(auto-fill, minmax(@width / 6, 1fr));
       @media (min-width 1024px)
-        grid-template-columns: repeat(auto-fill, @width / 8);
+        grid-template-columns: repeat(auto-fill, minmax(@width / 7, 1fr));
+      @media (min-width 1100px)
+        grid-template-columns: repeat(auto-fill, minmax(@width / 9, 1fr));
       @media (min-width 1400px)
-        grid-template-columns: repeat(auto-fill, @width / 12);
+        grid-template-columns: repeat(auto-fill, minmax(@width / 13, 1fr));
 
       .counter-box
-        width 96%
-        padding-top 96%
-        margin-bottom 12px
+        width 100%
+        padding-top 100%
         tap-highlight-color: rgba(0, 0, 0, 0);
         position relative
 

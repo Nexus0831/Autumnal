@@ -54,7 +54,10 @@ export default class MaterialIcon extends Vue {
   user-select none
   border-radius 50%
   padding 3px
+  display inline-flex
   transition all 0.3s
+  justify-content center
+  align-items center
 
 .icon-graphy
   /*--- attr ---*/
@@ -79,8 +82,6 @@ export default class MaterialIcon extends Vue {
 
 .material-icons
   @media (max-width 619px)
-    font-size 16px
-  @media (min-width 619px)
     font-size 20px
   @media (min-width 1024px)
     font-size 24px
