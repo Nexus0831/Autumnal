@@ -48,7 +48,6 @@ export default class MaterialIcon extends Vue {
 #icon
   user-select none
   border-radius 50%
-  transition all 0.3s
   height 40px
   width 40px
 
@@ -57,12 +56,12 @@ export default class MaterialIcon extends Vue {
   /*--- end ---*/
 
   /*--- style ---*/
+  transition all 0.3s
   border-radius 50%
   height 100%
   width 100%
   overflow hidden
   position relative
-  transition  all 0.2s
   /*--- end ---*/
 
   /*--- layout ---*/

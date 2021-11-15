@@ -7,6 +7,11 @@ export interface Counter {
   isGraphic: boolean,
 }
 
+export interface Percentage {
+  color: string,
+  percent: string,
+}
+
 export interface Group {
   key: string,
   groupName: string,

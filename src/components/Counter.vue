@@ -216,7 +216,7 @@ export default class counter extends Vue {
     /*-- layout --*/
     display inline-flex
     align-items center
-    justify-content:space-between
+    justify-content space-between
     grid-row 4 / 5
     grid-column 2 / 3
     /*-- end --*/

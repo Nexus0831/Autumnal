@@ -42,6 +42,9 @@
       </div>
     </div>
     <div class="graph-area card-texture">
+      <ProbabilityTable
+        class="probability-table"
+      />
       <DoughnutChart
         class="doughnut-chart"
       />
@@ -76,9 +79,11 @@ import DoughnutChart from '@/components/DoughnutChart.vue';
 import BarChart from '@/components/BarChart.vue';
 import CounterDialogForm from '@/components/CounterDialogForm.vue';
 import RecordTable from '@/components/RecordTable.vue';
+import ProbabilityTable from '@/components/ProbabilityTable.vue';
 
 @Component({
   components: {
+    ProbabilityTable,
     RecordTable,
     CounterDialogForm,
     BarChart,
@@ -200,32 +205,36 @@ export default class CountView extends Vue {
   .graph-area
     display grid
     @media (max-width 619px)
-      grid-template-rows 8px 1fr 8px 1fr 8px auto 8px
+      grid-template-rows 8px auto 8px 1fr 8px 1fr 8px auto 8px
       grid-template-columns 2% 96% 2%
     @media (min-width 619px)
-      grid-template-rows 12px 1fr 12px auto 12px
+      grid-template-rows 12px auto 12px 1fr 12px auto 12px
       grid-template-columns 2% 47% 2% 47% 2%
 
     grid-row 5 / 6
 
-    .doughnut-chart
+    .probability-table
       grid-row 2 / 3
+      grid-column 2 / 5
+
+    .doughnut-chart
+      grid-row 4 / 5
       grid-column 2 / 3
 
     .bar-chart
-      @media (max-width 619px)
-        grid-row 4 / 5
-        grid-column 2 / 3
-      @media (min-width 619px)
-        grid-row 2 / 3
-        grid-column 4 / 5
-
-    .record-table
       @media (max-width 619px)
         grid-row 6 / 7
         grid-column 2 / 3
       @media (min-width 619px)
         grid-row 4 / 5
+        grid-column 4 / 5
+
+    .record-table
+      @media (max-width 619px)
+        grid-row 8 / 9
+        grid-column 2 / 3
+      @media (min-width 619px)
+        grid-row 6 / 7
         grid-column 2 / 5
 
   .card-texture
