@@ -190,13 +190,7 @@ export default class CountView extends Vue {
       @media (max-width 619px)
         grid-template-columns: repeat(auto-fill, minmax(@width / 4, 1fr));
       @media (min-width 619px)
-        grid-template-columns: repeat(auto-fill, minmax(@width / 6, 1fr));
-      @media (min-width 1024px)
-        grid-template-columns: repeat(auto-fill, minmax(@width / 7, 1fr));
-      @media (min-width 1100px)
-        grid-template-columns: repeat(auto-fill, minmax(@width / 9, 1fr));
-      @media (min-width 1400px)
-        grid-template-columns: repeat(auto-fill, minmax(@width / 13, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
 
       .counter-box
         width 100%

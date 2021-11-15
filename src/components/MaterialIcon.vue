@@ -81,8 +81,8 @@ export default class MaterialIcon extends Vue {
     cursor pointer
 
 .material-icons
-  @media (max-width 619px)
+  @media (max-width 400px)
     font-size 20px
-  @media (min-width 1024px)
+  @media (min-width 400px)
     font-size 24px
 </style>
