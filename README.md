@@ -1,4 +1,5 @@
 # autumnal(https://autumnal-a5ea5.firebaseapp.com/)
+現在も製作中なので様子がおかしい時がありますがあしからず
 
 ## Project setup
 ```
