@@ -372,11 +372,16 @@ export default new Vuex.Store({
         .filter((e: any) => e.counterKey === keys.counterKey && e.date === nowDate)[0];
       // レコードが存在するか検索
       // TODO: マイナス時に0になったらレコードを削除する。
-      if (record !== undefined && record.count > 0) {
+      if (record !== undefined && record.count - 1 > 0) {
         await firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/records/${record.key}`)
           .update({
             count: record.count - 1,
           }).then(() => {
+            context.dispatch('groupRead', keys.groupKey).then();
+          });
+      } else if (record !== undefined && record.count - 1 <= 0) {
+        await firebase.database().ref(`/users/${context.state.user.uid}/groups/${keys.groupKey}/records/${record.key}`)
+          .remove().then(() => {
             context.dispatch('groupRead', keys.groupKey).then();
           });
       }
