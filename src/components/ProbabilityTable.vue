@@ -39,8 +39,6 @@ export default class ProbabilityTable extends Vue {
       });
       this.$store.state.group.counters.forEach((e: Counter) => {
         if (e.isGraphic) {
-          console.log(e.count);
-          console.log(this.sum);
           const percentage = ((e.count / this.sum) * 100).toFixed(1);
           const datum:Percentage = {
             color: e.backgroundColor,
