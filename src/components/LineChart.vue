@@ -53,7 +53,7 @@ export default class LineChart extends Vue {
           const set = {
             label: e.name,
             backgroundColor: e.backgroundColor,
-            borderColor: e.backgroundColor,
+            borderColor: `${e.backgroundColor}A6`,
             fill: false,
             data: rcData,
           };
@@ -92,6 +92,9 @@ export default class LineChart extends Vue {
       scales: {
         xAxes: [{
           type: 'time',
+          ticks: {
+            fontColor: '#ffffff',
+          },
           time: {
             unit: 'day',
             displayFormats: { day: 'YYYY/MM/DD' },
@@ -104,7 +107,7 @@ export default class LineChart extends Vue {
         yAxes: [{
           ticks: {
             beginAtZero: true,
-            fontColor: 'white',
+            fontColor: '#ffffff',
             stepSize: 1,
           },
           gridLines: {
