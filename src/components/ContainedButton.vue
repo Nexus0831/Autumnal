@@ -67,7 +67,7 @@ export default class ContainedButton extends Vue {
   line-height 1.5
   border-radius 4px
   letter-spacing 0.02857em
-  text-transform uppercase
+  /*text-transform uppercase*/
   transition all 0.3s
 
   &:hover

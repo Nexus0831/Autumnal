@@ -18,7 +18,7 @@ const routes: Array<RouteConfig> = [
     component: Count,
   },
   {
-    path: '/login',
+    path: '/login_edit',
     name: 'Login',
     component: Login,
   },
