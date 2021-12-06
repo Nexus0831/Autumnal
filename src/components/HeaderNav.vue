@@ -54,7 +54,7 @@ export default class HeaderNav extends Vue {}
     /* --- end --- */
     /* --- style --- */
     position fixed
-    z-index 99999
+    z-index 9999
     width 100%
     height 50px
     background-color #303030
