@@ -9,9 +9,7 @@
 </template>
 
 <script lang="ts">
-import {
-  Component, Vue,
-} from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import { ChartData, ChartOptions } from 'chart.js';
 import { Counter } from '@/interface/interface';
 import BarChartComponent from '@/components/BarChartComponent.vue';
@@ -19,7 +17,7 @@ import BarChartComponent from '@/components/BarChartComponent.vue';
   @Component({
     components: { BarChartComponent },
   })
-export default class DoughnutChart extends Vue {
+export default class BarChart extends Vue {
     private data:number[] = [];
 
     private colors:string[] = [];

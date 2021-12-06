@@ -3,11 +3,11 @@ import {
   Component, Mixins, Prop, Watch,
 } from 'vue-property-decorator';
 import Chart from 'chart.js';
-import { Bar, mixins } from 'vue-chartjs';
+import { Line, mixins } from 'vue-chartjs';
 
   @Component({})
-export default class BarChartComponent extends Mixins(
-  Bar,
+export default class DoughnutChartComponent extends Mixins(
+  Line,
   mixins.reactiveProp,
 ) {
     @Prop() public chartData!: Chart.ChartData;

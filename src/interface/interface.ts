@@ -22,7 +22,7 @@ export interface Group {
 
 export interface CountRecord {
   key: string,
-  Date: string,
+  date: string,
   counterKey: string,
   count: number,
 }

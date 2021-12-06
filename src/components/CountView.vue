@@ -48,7 +48,7 @@
       <DoughnutChart
         class="doughnut-chart"
       />
-      <BarChart
+      <LineChart
         class="bar-chart"
       />
       <RecordTable
@@ -76,7 +76,7 @@ import Counter from '@/components/Counter.vue';
 import { Counter as counter } from '@/interface/interface';
 import Alert from '@/components/Alert.vue';
 import DoughnutChart from '@/components/DoughnutChart.vue';
-import BarChart from '@/components/BarChart.vue';
+import LineChart from '@/components/LineChart.vue';
 import CounterDialogForm from '@/components/CounterDialogForm.vue';
 import RecordTable from '@/components/RecordTable.vue';
 import ProbabilityTable from '@/components/ProbabilityTable.vue';
@@ -86,7 +86,7 @@ import ProbabilityTable from '@/components/ProbabilityTable.vue';
     ProbabilityTable,
     RecordTable,
     CounterDialogForm,
-    BarChart,
+    LineChart,
     DoughnutChart,
     Alert,
     Counter,
