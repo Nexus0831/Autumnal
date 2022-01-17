@@ -111,7 +111,7 @@ export default class LineChart extends Vue {
             stepSize: 1,
           },
           gridLines: {
-            color: 'rgba(255, 255, 255, 0.5)',
+            color: 'rgba(255, 255, 255, 0.1)',
             drawBorder: false,
           },
         }],
